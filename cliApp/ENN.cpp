@@ -40,7 +40,7 @@ void ENN::optimizePoints(){
     for(int i=0; i<1000; i++){
         std::cout << "Iteration:" << i << std::endl;
         for(std::vector<Point>::iterator it = ENN::points->begin(); it != ENN::points->end(); ++it) {
-            (*it)+=deltaY_a(*it);
+            (*it) += deltaY_a(*it);
         }
         
         ENN::K = ENN::getKNew();
@@ -83,7 +83,7 @@ ForceDirection ENN::deltaY_a(Point& a){
     ForceDirection cityForce = cityForceSum * ENN::alpha;
 
 
-    Point* a_prev;
+    Point* a_prev = &(ENN::points->back());
     Point* a_next;
     for(std::vector<Point>::iterator it = ENN::points->begin(); it != ENN::points->end(); ++it) {
         if(it->index == a.index){
@@ -91,7 +91,7 @@ ForceDirection ENN::deltaY_a(Point& a){
             if(it != ENN::points->end()) a_next = &(*it);
             else a_next = &(*ENN::points->begin());
 
-            if(a_prev == nullptr) a_prev = &(*ENN::points->end());
+            // if(!a_prev) a_prev = &(ENN::points->back());
 
             break;
         }
