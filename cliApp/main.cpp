@@ -29,7 +29,7 @@ int main ( int argc, char *argv[]) {
 	cout << "\nInitial coordinates of points: " << endl;
 
 
-	TSP travelingSalesman("ali535.tsp");
+	TSP travelingSalesman("berlin52.tsp");
 
 	vector<City>* cities = travelingSalesman.getCities();
 
@@ -47,14 +47,11 @@ int main ( int argc, char *argv[]) {
             cout << "Point " << it->index << ":\tx:" << it->x << ",\ty:" << it->y << endl;
     }
 
-	Point p1(1,1,0);
-	Point p2(3,2,1);
+	vector<int>* tspList = network.getTSPList();
 
-	Point p3 = p1*2;
-
-	cout << "Point " << p1.index << ":\tx:" << p1.x << ",\ty:" << p1.y << endl;
-	cout << "Point " << p2.index << ":\tx:" << p2.x << ",\ty:" << p2.y << endl;
-	cout << "Point " << p3.index << ":\tx:" << p3.x << ",\ty:" << p3.y << endl;
+	for(std::vector<int>::iterator it = tspList->begin(); it != tspList->end(); ++it) {
+            cout << "City Index:  " << (*it) << endl;
+    }
 
     delete points; // delete points vector
 }
