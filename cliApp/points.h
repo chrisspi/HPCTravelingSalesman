@@ -1,3 +1,5 @@
+#include <cmath>
+
 #ifndef TSPPOINT
 #define TSPPOINT
 struct Point {
@@ -6,9 +8,28 @@ struct Point {
      double y;
      int index;
 
+     double magnitude(){
+          return sqrt(pow(x,2)+pow(y,2));
+     }
+
      Point operator+(const Point& point){
           double x = this->x + point.x;
           double y = this->y + point.y;
+
+          Point p(x,y,0);
+          return p;
+     }
+
+     Point operator+=(const Point& point){
+          x += point.x;
+          y += point.y;
+
+          return *this;
+     }
+
+     Point operator-(const Point& point){
+          double x = this->x - point.x;
+          double y = this->y - point.y;
 
           Point p(x,y,0);
           return p;
@@ -24,4 +45,5 @@ struct Point {
 };
 
 typedef Point City;
+typedef Point ForceDirection;
 #endif
