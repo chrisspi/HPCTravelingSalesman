@@ -2,7 +2,7 @@
 
 The travelling salesman problem (also called the travelling salesperson problem or TSP) asks the following question: "Given a list of cities and the distances between each pair of cities, what is the shortest possible route that visits each city and returns to the origin city?" It is an NP-hard problem in combinatorial optimization, important in theoretical computer science and operations research.
 
-In our studies we want to deal with this problem / this question. For this reason, we are developing a tool based on a neural network that can approximately calculate this problem.
+In our studies we want to deal with this problem / this question. For this reason, we are developing a tool based on an elastic neural network that can approximately calculate this problem.
 
 The aim is to have a program that calculates and visualizes the shortest path for the TSP for a given set of points.
 
@@ -38,3 +38,24 @@ The aim is to have a program that calculates and visualizes the shortest path fo
           - Optional:       sudo apt-get install libglu1-mesa-dev
     
 
+### ---How to get and start the Program---
+
+- 'git clone https://github.com/chrisspi/HPCTravelingSalesman.git'
+- 'cd HPCTravelingSalesman'
+- 'cd cliApp'
+- 'make'
+- './a.out'
+- './a.out --graphical interface' not Implemented yet
+- './a.out --simd' not Implemented yet
+- './a.out --graphical interface --simd' not Implemented yet
+
+
+Terms: 3 weeks, June 17 - July 8;
+• Task 1: TSP with ENN - scalar + graphical interface + tests;
+• Task 2: TSP with ENN - console application with SIMD and OpenMP;
+• Task 3: Study of the program and the results obtained;
+• Program + slides + video presentation
+
+
+ [Wikipedia page](https://de.wikipedia.org/wiki/Qt_(Bibliothek))
+ [Manual (German)](https://de.wikibooks.org/wiki/Qt_für_C%2B%2B-Anfänge)
