@@ -23,17 +23,17 @@ The aim is to have a program that calculates and visualizes the shortest path fo
 
 3. QT Einrichtung / QT Maintenance Tool
     - Please select the components you want to install
-        - Developer abd Designer Tools
+        - Developer and Designer Tools
         - QT 5.9.9    Something is needed ... this was Memory-saving
     - I do read and agree to the terms contained in the license agreements
     - Installation
 
     
-4. Starte QT Creator
-    - Editieren / Edit
-    - Open file or project
-        - choose HPC_TSP_GUI/HPC_TSP.pro
-        - To start the GUI, press play at the bottom on the left  / Run (Strg + R)
+4. start QT Creator
+    - edit
+        - open file or project
+            - choose HPC_TSP_GUI/HPC_TSP.pro
+    - to start the GUI, press play at the bottom on the left  / Run (Strg + R)
           - If there are problems, certain libaries may be missing
           - Optional:       sudo apt-get install libglu1-mesa-dev
     
