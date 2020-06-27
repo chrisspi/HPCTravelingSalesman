@@ -1,9 +1,9 @@
 #include <cmath>
 
-#ifndef TSPPOINT
-#define TSPPOINT
-struct Point {
-     Point( double X, double Y , int Index): x(X), y(Y), index(Index) {};
+#ifndef TSPVECTOR
+#define TSPVECTOR
+struct TSPVector {
+     TSPVector( double X, double Y , int Index): x(X), y(Y), index(Index) {};
      double x;
      double y;
      int index;
@@ -12,38 +12,39 @@ struct Point {
           return sqrt(pow(x,2)+pow(y,2));
      }
 
-     Point operator+(const Point& point){
+     TSPVector operator+(const TSPVector& point){
           double x = this->x + point.x;
           double y = this->y + point.y;
 
-          Point p(x,y,0);
+          TSPVector p(x,y,0);
           return p;
      }
 
-     Point operator+=(const Point& point){
+     TSPVector operator+=(const TSPVector& point){
           x += point.x;
           y += point.y;
 
           return *this;
      }
 
-     Point operator-(const Point& point){
+     TSPVector operator-(const TSPVector& point){
           double x = this->x - point.x;
           double y = this->y - point.y;
 
-          Point p(x,y,0);
+          TSPVector p(x,y,0);
           return p;
      }
 
-     Point operator*(const double factor){
+     TSPVector operator*(const double factor){
           double x = this->x * factor;
           double y = this->y * factor;
 
-          Point p(x,y,0);
+          TSPVector p(x,y,0);
           return p; 
      }
 };
 
-typedef Point City;
-typedef Point ForceDirection;
+typedef TSPVector City;
+typedef TSPVector Force;
+typedef TSPVector NetworkPoint;
 #endif

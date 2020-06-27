@@ -73,7 +73,7 @@ int TSP::parseTSP(vector<string> *tsp){
                 count++;
             }
 
-            cities->push_back(Point(x,y,index));
+            cities->push_back(City(x,y,index));
         }
     }
 
@@ -84,14 +84,14 @@ int TSP::parseTSP(vector<string> *tsp){
 int TSP::normaliseCities(){
     //Translate Cities to positive space
     double minX = 0, minY = 0;
-    for(std::vector<Point>::iterator it = cities->begin(); it != cities->end(); ++it) {
+    for(std::vector<City>::iterator it = cities->begin(); it != cities->end(); ++it) {
            minX = min(minX,it->x);
            minY = min(minY,it->y);
     }
 
     //Find maximum X and Y Value
     double maxX = 0, maxY = 0;
-    for(std::vector<Point>::iterator it = cities->begin(); it != cities->end(); ++it) {
+    for(std::vector<City>::iterator it = cities->begin(); it != cities->end(); ++it) {
            it->x -= minX;
            it->y -= minY;
            
@@ -101,7 +101,7 @@ int TSP::normaliseCities(){
 
     //Scale all points by the maximum Axis Value to fit in the [0,1] Space
     double maxAxis = max(maxX,maxY);
-    for(std::vector<Point>::iterator it = cities->begin(); it != cities->end(); ++it) {
+    for(std::vector<City>::iterator it = cities->begin(); it != cities->end(); ++it) {
            it->x /= maxAxis;
            it->y /= maxAxis;
     }

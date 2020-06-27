@@ -4,7 +4,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <vector> 
-#include "points.h"
+#include "tspvector.h"
 #include "TSP.h"
 #include "ENN.h"
 
@@ -34,20 +34,20 @@ int main ( int argc, char *argv[]) {
 	vector<City>* cities = travelingSalesman.getCities();
 
 	// printing cities
-    for(std::vector<Point>::iterator it = cities->begin(); it != cities->end(); ++it) {
+    for(std::vector<City>::iterator it = cities->begin(); it != cities->end(); ++it) {
             cout << "City " << ":\t index:" << it->index << ",\t x:" << it->x << ", \t y:" << it->y << endl;
     }
 
 	ENN network(cities);
     // dynamically allocate vector
-    vector<Point> *points = network.generateNetworkPoints(0.1, cities->size());
+    vector<NetworkPoint> *points = network.generateNetworkPoints(0.1, cities->size());
 
     // traverse points
-    for(std::vector<Point>::iterator it = points->begin(); it != points->end(); ++it) {
+    for(std::vector<NetworkPoint>::iterator it = points->begin(); it != points->end(); ++it) {
             cout << "Point " << it->index << ":\tx:" << it->x << ",\ty:" << it->y << endl;
     }
-	
-	network.optimizePoints(100);
+
+	network.optimizeNetworkPoints(100);
 
 	vector<int>* tspList = network.getTSPList();
 
