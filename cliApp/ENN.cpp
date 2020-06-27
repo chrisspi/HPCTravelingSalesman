@@ -22,21 +22,21 @@ int KUpdatePeriod, double radius, double numPointFactor){
     ENN::networkPoints = generateNetworkPoints(ENN::radius, numpoints);
 }
 
-vector<TSPVector>* ENN::generateNetworkPoints(double radius, unsigned int numPoints){
+vector<NetworkPoint>* ENN::generateNetworkPoints(double radius, unsigned int numPoints){
 
     double deltaAngle = 2 * M_PI / numPoints;
 
-    vector<TSPVector> *points = new vector<TSPVector>;
+    vector<NetworkPoint> *points = new vector<NetworkPoint>;
     // put all points into the points vector in form of a circle
     unsigned int count = 0;
 	for (double angle = 0; angle <= 2*M_PI; angle+=deltaAngle) {
-		points->push_back( TSPVector( radius * cos( angle ) + 0.5,  radius * sin( angle ) + 0.5, count++) );
+		points->push_back( NetworkPoint( radius * cos( angle ) + 0.5,  radius * sin( angle ) + 0.5, count++) );
 	}
 
     return points;
 }
 
-vector<TSPVector>* ENN::optimizeNetworkPoints(int iterations){
+vector<NetworkPoint>* ENN::optimizeNetworkPoints(int iterations){
     for(int i=0; i<iterations; i++){
         std::cout << "Iteration:" << i << std::endl;
 
@@ -46,8 +46,8 @@ vector<TSPVector>* ENN::optimizeNetworkPoints(int iterations){
     return ENN::networkPoints;
 }
 
-vector<TSPVector>* ENN::optimizeNetworkPoints(){
-    for(std::vector<TSPVector>::iterator it = ENN::networkPoints->begin(); it != ENN::networkPoints->end(); ++it) {
+vector<NetworkPoint>* ENN::optimizeNetworkPoints(){
+    for(std::vector<NetworkPoint>::iterator it = ENN::networkPoints->begin(); it != ENN::networkPoints->end(); ++it) {
         (*it) += deltaY_a(*it);
     }
     
@@ -62,18 +62,18 @@ double ENN::getKNew(){
     return kNew;
 }
 
-double ENN::v_ia(City& i, TSPVector& a){
+double ENN::v_ia(City& i, NetworkPoint& a){
     double upper = ENN::v_ia_helper(i,a);
 
     double lower = 0;
-    for(std::vector<TSPVector>::iterator it = ENN::networkPoints->begin(); it != ENN::networkPoints->end(); ++it) {
+    for(std::vector<NetworkPoint>::iterator it = ENN::networkPoints->begin(); it != ENN::networkPoints->end(); ++it) {
         lower += v_ia_helper(i,*it);
     }
 
     return upper/lower;
 }
 
-double ENN::v_ia_helper(City& i, TSPVector& a){
+double ENN::v_ia_helper(City& i, NetworkPoint& a){
     double T = 2 * pow(K,2);
 
     double sum_1 = (-pow((i-a).magnitude(),2))/T;
@@ -82,7 +82,7 @@ double ENN::v_ia_helper(City& i, TSPVector& a){
     return sum;
 }
 
-Force ENN::deltaY_a(TSPVector& a){
+Force ENN::deltaY_a(NetworkPoint& a){
     Force cityForceSum(0,0,0);
 
     for(std::vector<City>::iterator it = ENN::cities->begin(); it != ENN::cities->end(); ++it) {
@@ -92,9 +92,9 @@ Force ENN::deltaY_a(TSPVector& a){
     Force cityForce = cityForceSum * ENN::alpha;
 
 
-    TSPVector* a_prev = &(ENN::networkPoints->back());
-    TSPVector* a_next;
-    for(std::vector<TSPVector>::iterator it = ENN::networkPoints->begin(); it != ENN::networkPoints->end(); ++it) {
+    NetworkPoint* a_prev = &(ENN::networkPoints->back());
+    NetworkPoint* a_next;
+    for(std::vector<NetworkPoint>::iterator it = ENN::networkPoints->begin(); it != ENN::networkPoints->end(); ++it) {
         if(it->index == a.index){
             ++it;
             if(it != ENN::networkPoints->end()) a_next = &(*it);
@@ -119,7 +119,7 @@ std::vector<int>* ENN::getTSPList(){
     
 
     std::vector<int> *tspList = new std::vector<int>;
-    for(std::vector<TSPVector>::iterator itP = ENN::networkPoints->begin(); itP != ENN::networkPoints->end(); ++itP) {
+    for(std::vector<NetworkPoint>::iterator itP = ENN::networkPoints->begin(); itP != ENN::networkPoints->end(); ++itP) {
         double shortestDistance = 2;
         City* nearestCity;
         for(std::vector<City>::iterator itC = ENN::cities->begin(); itC != ENN::cities->end(); ++itC) {

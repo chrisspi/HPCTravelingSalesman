@@ -29,6 +29,6 @@ class ENN{
         double getKNew();
         double v_ia(City& i, NetworkPoint& a);
         double v_ia_helper(City& i, NetworkPoint& a);
-        TSPVector deltaY_a(TSPVector& a);
+        TSPVector deltaY_a(NetworkPoint& a);
 
 };
