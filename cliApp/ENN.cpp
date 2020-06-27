@@ -36,15 +36,24 @@ vector<Point>* ENN::generateNetworkPoints(double radius, unsigned int numPoints)
     return points;
 }
 
-void ENN::optimizePoints(){
-    for(int i=0; i<1000; i++){
+vector<Point>* ENN::optimizePoints(int iterations){
+    for(int i=0; i<iterations; i++){
         std::cout << "Iteration:" << i << std::endl;
-        for(std::vector<Point>::iterator it = ENN::points->begin(); it != ENN::points->end(); ++it) {
-            (*it) += deltaY_a(*it);
-        }
-        
-        ENN::K = ENN::getKNew();
+
+        optimizePoints();
     }
+
+    return ENN::points;
+}
+
+vector<Point>* ENN::optimizePoints(){
+    for(std::vector<Point>::iterator it = ENN::points->begin(); it != ENN::points->end(); ++it) {
+        (*it) += deltaY_a(*it);
+    }
+    
+    ENN::K = ENN::getKNew();
+
+    return ENN::points;
 }
 
 double ENN::getKNew(){
@@ -107,7 +116,7 @@ ForceDirection ENN::deltaY_a(Point& a){
 std::vector<int>* ENN::getTSPList(){
 
     //Todo: Change to get nearest Point from every city to sort cities, instead nearest city for every point
-    ENN::optimizePoints();
+    
 
     std::vector<int> *tspList = new std::vector<int>;
     for(std::vector<Point>::iterator itP = ENN::points->begin(); itP != ENN::points->end(); ++itP) {

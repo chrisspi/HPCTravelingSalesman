@@ -6,6 +6,7 @@ class TSP{
     public:
         TSP(std::string filename);
         ~TSP();
+        //Returns List of normalised Cities of the given File
         std::vector<City>* getCities();
 
     private:

@@ -46,6 +46,8 @@ int main ( int argc, char *argv[]) {
     for(std::vector<Point>::iterator it = points->begin(); it != points->end(); ++it) {
             cout << "Point " << it->index << ":\tx:" << it->x << ",\ty:" << it->y << endl;
     }
+	
+	network.optimizePoints(100);
 
 	vector<int>* tspList = network.getTSPList();
 
