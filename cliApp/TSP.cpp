@@ -4,6 +4,9 @@
 #include "TSP.h"
 using namespace std;
 
+// Konstruktor
+// Prüft ob Datei <filename> existiert und sich öffnen lässt
+// Liest Datei ein und schiebt den Inhalt der einzelnen Zeilen in einen String 
 TSP::TSP(string filename){
     string line;
     vector<string> *tsp = new vector<string>;
@@ -19,18 +22,23 @@ TSP::TSP(string filename){
 
     else cout << "Unable to open file"; 
 
+    // generiert aus dem String-Vector einen City-Vector
     parseTSP(tsp);
+    // normalisiert die Koordinaten im City-Vector
     normaliseCities();
 }
 
+// Destruktor
 TSP::~TSP(){
     delete cities;
 }
 
+// Returns a vector that contains the private coordinates of the cities
 vector<City>* TSP::getCities(){
     return TSP::cities;
 }
 
+// 
 int TSP::parseTSP(vector<string> *tsp){
     TSP::cities = new vector<City>;
 
@@ -81,6 +89,9 @@ int TSP::parseTSP(vector<string> *tsp){
     return 0;
 }
 
+
+// Searches for the largest X and Y values in all cities
+// then the coordinate values of the cities are divided by the maxima found
 int TSP::normaliseCities(){
     //Translate Cities to positive space
     double minX = 0, minY = 0;
