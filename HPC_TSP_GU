@@ -27,19 +27,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # Hier werden die Dateien deklariert die in das Projekt geladen werden sollen
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-        gamewidget_2.cpp \
-        ../cliApp/ENN.cpp \
-        ../cliApp/TSP.cpp
+        HPC_TSP_GUI/main.cpp \
+        HPC_TSP_GUI/mainwindow.cpp \
+        HPC_TSP_GUI/gamewidget_2.cpp \
+        cliApp/ENN.cpp \
+        cliApp/TSP.cpp
 
 
 HEADERS += \
-        mainwindow.h \
-        gamewidget_2.h \
-        ../cliApp/tspvector.h \
-        ../cliApp/ENN.h \
-        ../cliApp/TSP.h
+        HPC_TSP_GUI/mainwindow.h \
+        HPC_TSP_GUI/gamewidget_2.h \
+        cliApp/tspvector.h \
+        cliApp/ENN.h \
+        cliApp/TSP.h
 
 FORMS += \
-        mainwindow.ui
+        HPC_TSP_GUI/mainwindow.ui
