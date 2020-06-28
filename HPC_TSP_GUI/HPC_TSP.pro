@@ -23,14 +23,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 
+
+# Hier werden die Dateien deklariert die in das Projekt geladen werden sollen
+
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    gamewidget_2.cpp
+        gamewidget_2.cpp \
+        ../cliApp/gamewidget_2.cpp \
+        ../cliApp/ali535.tsp \
+        ../cliApp/berlin52.tsp \
+        ../cliApp/ENN.cpp \
+        ../cliApp/ENN.h \
+        ../cliApp/main.cpp \
+        ../cliApp/makefile \
+        ../cliApp/points.h \
+        ../cliApp/TSP.cpp \
+        ../cliApp/TSP.h \
 
 HEADERS += \
         mainwindow.h \
-    gamewidget_2.h
+        gamewidget_2.h
 
 FORMS += \
         mainwindow.ui
