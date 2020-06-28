@@ -4,9 +4,9 @@
 #include "TSP.h"
 using namespace std;
 
-// Konstruktor
-// Prüft ob Datei <filename> existiert und sich öffnen lässt
-// Liest Datei ein und schiebt den Inhalt der einzelnen Zeilen in einen String 
+// constructor
+// Checks whether file <filename> exists and can be opened
+// Reads the file and shifts the content of the individual lines into a string
 TSP::TSP(string filename){
     string line;
     vector<string> *tsp = new vector<string>;
@@ -22,9 +22,9 @@ TSP::TSP(string filename){
 
     else cout << "Unable to open file"; 
 
-    // generiert aus dem String-Vector einen City-Vector
+    // generates a city vector from the string vector
     parseTSP(tsp);
-    // normalisiert die Koordinaten im City-Vector
+    // normalizes the coordinates in the city vector
     normaliseCities();
 }
 
