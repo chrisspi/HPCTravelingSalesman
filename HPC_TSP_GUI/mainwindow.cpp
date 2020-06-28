@@ -53,9 +53,16 @@ void MainWindow::loadCities()
   QString filename = QFileDialog::getOpenFileName(this,
                                                   tr("Open saved cities"),
                                                   QDir::homePath());
+
+
   if(filename.length() < 1)
       return;
-  QFile file(filename);
+
+  TSP tsp("filename");
+
+  std::vector<City>* cities = tsp.getCities();
+
+  /*QFile file(filename);
   if(!file.open(QIODevice::ReadOnly))
       return;
   QTextStream in(&file);
@@ -82,8 +89,9 @@ void MainWindow::loadCities()
       if( yc[i] < ymin ) ymin = yc[i];
     }
   game2->fieldSizeX = (xmax - xmin);
-  game2->fieldSizeY = (ymax - ymin);
-  for( int i = 0; i < NC; i++ ) {
-      game2->AddCity( (xc[i] - xmin + game2->fieldSizeX*0.05) / game2->fieldSizeX*0.9, (yc[i] - ymin + game2->fieldSizeY*0.05) / game2->fieldSizeY*0.9 );
+  game2->fieldSizeY = (ymax - ymin);*/
+
+  for( int i = 0; i < cities->size(); i++ ) {
+      game2->AddCity( cities->at(i).x, cities->at(i).y );
     }
 }

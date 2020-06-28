@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QColor>
 #include "gamewidget_2.h"
+#include "../cliApp/TSP.h"
 
 namespace Ui {
 class MainWindow;

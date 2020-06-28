@@ -30,20 +30,16 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         gamewidget_2.cpp \
-        ../cliApp/gamewidget_2.cpp \
-        ../cliApp/ali535.tsp \
-        ../cliApp/berlin52.tsp \
         ../cliApp/ENN.cpp \
-        ../cliApp/ENN.h \
-        ../cliApp/main.cpp \
-        ../cliApp/makefile \
-        ../cliApp/points.h \
-        ../cliApp/TSP.cpp \
-        ../cliApp/TSP.h \
+        ../cliApp/TSP.cpp
+
 
 HEADERS += \
         mainwindow.h \
-        gamewidget_2.h
+        gamewidget_2.h \
+        ../cliApp/tspvector.h \
+        ../cliApp/ENN.h \
+        ../cliApp/TSP.h
 
 FORMS += \
         mainwindow.ui
