@@ -58,4 +58,4 @@ Terms: 3 weeks, June 17 - July 8;
 
 
  [Wikipedia page](https://de.wikipedia.org/wiki/Qt_(Bibliothek))
- [Manual (German)](https://de.wikibooks.org/wiki/Qt_für_C%2B%2B-Anfänge)
+ [Manual (German)](https://de.wikibooks.org/wiki/Qt_für_C%2B%2B-Anfänger)
