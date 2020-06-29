@@ -20,6 +20,8 @@ int KUpdatePeriod, double radius, double numPointFactor){
     int numpoints = cities->size() * ENN::numPointFactor;
 
     ENN::networkPoints = generateNetworkPoints(ENN::radius, numpoints);
+
+    ENN::v_ia_results = new double[ENN::cities->size()];
 }
 
 vector<NetworkPoint>* ENN::generateNetworkPoints(double radius, unsigned int numPoints){
@@ -47,6 +49,8 @@ vector<NetworkPoint>* ENN::optimizeNetworkPoints(int iterations){
 }
 
 vector<NetworkPoint>* ENN::optimizeNetworkPoints(){
+    ENN::reset_via_results();
+
     for(std::vector<NetworkPoint>::iterator it = ENN::networkPoints->begin(); it != ENN::networkPoints->end(); ++it) {
         (*it) += deltaY_a(*it);
     }
@@ -65,10 +69,15 @@ double ENN::getKNew(){
 double ENN::v_ia(City& i, NetworkPoint& a){
     double upper = ENN::v_ia_helper(i,a);
 
-    double lower = 0;
-    for(std::vector<NetworkPoint>::iterator it = ENN::networkPoints->begin(); it != ENN::networkPoints->end(); ++it) {
-        lower += v_ia_helper(i,*it);
+    double lower = ENN::v_ia_results[i.index-1];
+    if(lower == -9999){
+        lower = 0;
+        for(std::vector<NetworkPoint>::iterator it = ENN::networkPoints->begin(); it != ENN::networkPoints->end(); ++it) {
+            lower += v_ia_helper(i,*it);
+        }
+        ENN::v_ia_results[i.index-1] = lower;
     }
+    
 
     return upper/lower;
 }
@@ -116,8 +125,6 @@ Force ENN::deltaY_a(NetworkPoint& a){
 std::vector<int>* ENN::getTSPList(){
 
     //Todo: Change to get nearest Point from every city to sort cities, instead nearest city for every point
-    
-
     std::vector<int> *tspList = new std::vector<int>;
     for(std::vector<NetworkPoint>::iterator itP = ENN::networkPoints->begin(); itP != ENN::networkPoints->end(); ++itP) {
         double shortestDistance = 2;
@@ -137,4 +144,22 @@ std::vector<int>* ENN::getTSPList(){
     }
 
     return tspList;
+}
+
+double ENN::getTourLength(double scale){
+    double length = 0;
+
+    NetworkPoint& prevPoint = networkPoints->back();
+    for(std::vector<NetworkPoint>::iterator itP = ENN::networkPoints->begin(); itP != ENN::networkPoints->end(); ++itP) {
+        length += (prevPoint - *itP).magnitude();
+        prevPoint = *itP;
+    }
+
+    return length * scale;
+}
+
+void ENN::reset_via_results(){
+    for(int i=0; i<cities->size(); i++){
+        ENN::v_ia_results[i] = -9999;
+    }
 }

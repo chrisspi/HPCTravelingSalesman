@@ -47,13 +47,15 @@ int main ( int argc, char *argv[]) {
             cout << "Point " << it->index << ":\tx:" << it->x << ",\ty:" << it->y << endl;
     }
 
-	network.optimizeNetworkPoints(100);
+	network.optimizeNetworkPoints(20000);
 
 	vector<int>* tspList = network.getTSPList();
 
 	for(std::vector<int>::iterator it = tspList->begin(); it != tspList->end(); ++it) {
             cout << "City Index:  " << (*it) << endl;
     }
+
+	cout << "Tour Length: " << network.getTourLength(travelingSalesman.getScale()) << endl;
 
     delete points; // delete points vector
 }

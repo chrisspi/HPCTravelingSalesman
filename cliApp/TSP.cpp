@@ -106,5 +106,11 @@ int TSP::normaliseCities(){
            it->y /= maxAxis;
     }
 
+    TSP::scale = maxAxis;
+
     return 0;
+}
+
+double TSP::getScale(){
+    return TSP::scale;
 }
