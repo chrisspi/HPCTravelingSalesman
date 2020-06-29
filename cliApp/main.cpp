@@ -34,12 +34,12 @@ int main ( int argc, char *argv[]) {
 	cout << "\nInitial coordinates of points: " << endl;
 
 
-	TSP<DataType> travelingSalesman("berlin52.tsp");
+	TSP travelingSalesman("berlin52.tsp");
 
-	vector<City<DataType>>* cities = travelingSalesman.getCities();
+	vector<City>* cities = travelingSalesman.getCities();
 
 	// printing cities
-    for(std::vector<City<DataType>>::iterator it = cities->begin(); it != cities->end(); ++it) {
+    for(std::vector<City>::iterator it = cities->begin(); it != cities->end(); ++it) {
             cout << "City " << ":\t index:" << it->index << ",\t x:" << it->x << ", \t y:" << it->y << endl;
     }
 
@@ -53,7 +53,7 @@ int main ( int argc, char *argv[]) {
     }
 
 	TStopwatch timerScalar;
-	network.optimizeNetworkPoints(100);
+	network.optimizeNetworkPoints(1000);
 	timerScalar.Stop();
 
 	// vector<int>* tspList = network.getTSPList();

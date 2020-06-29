@@ -7,8 +7,7 @@ using namespace std;
 // constructor
 // Checks whether file <filename> exists and can be opened
 // Reads the file and shifts the content of the individual lines into a string
-template <typename T>
-TSP<T>::TSP(string filename){
+TSP::TSP(string filename){
     string line;
     vector<string> *tsp = new vector<string>;
     ifstream myfile (filename);
@@ -30,21 +29,18 @@ TSP<T>::TSP(string filename){
 }
 
 // Destruktor
-template <typename T>
-TSP<T>::~TSP(){
+TSP::~TSP(){
     delete cities;
 }
 
 // Returns a vector that contains the private coordinates of the cities
-template <typename T>
-vector<City<T>>* TSP<T>::getCities(){
+vector<City>* TSP::getCities(){
     return TSP::cities;
 }
 
 // 
-template <typename T>
-int TSP<T>::parseTSP(vector<string> *tsp){
-    TSP::cities = new vector<City<T>>;
+int TSP::parseTSP(vector<string> *tsp){
+    TSP::cities = new vector<City>;
 
     int mode = 0; //0 = Begin, 1= NODE_COORD_SECTION, 2 = EOF
 
@@ -85,7 +81,7 @@ int TSP<T>::parseTSP(vector<string> *tsp){
                 count++;
             }
 
-            cities->push_back(City<T>(x,y,index));
+            cities->push_back(City(x,y,index));
         }
     }
 
@@ -96,18 +92,17 @@ int TSP<T>::parseTSP(vector<string> *tsp){
 
 // Searches for the largest X and Y values in all cities
 // then the coordinate values of the cities are divided by the maxima found
-template <typename T>
-int TSP<T>::normaliseCities(){
+int TSP::normaliseCities(){
     //Translate Cities to positive space
     double minX = 0, minY = 0;
-    for(typename vector<City<T>>::iterator it = cities->begin(); it != cities->end(); ++it) {
+    for(std::vector<City>::iterator it = cities->begin(); it != cities->end(); ++it) {
            minX = min(minX,it->x);
            minY = min(minY,it->y);
     }
 
     //Find maximum X and Y Value
     double maxX = 0, maxY = 0;
-    for(typename vector<City<T>>::iterator it = cities->begin(); it != cities->end(); ++it) {
+    for(std::vector<City>::iterator it = cities->begin(); it != cities->end(); ++it) {
            it->x -= minX;
            it->y -= minY;
            
@@ -117,7 +112,7 @@ int TSP<T>::normaliseCities(){
 
     //Scale all points by the maximum Axis Value to fit in the [0,1] Space
     double maxAxis = max(maxX,maxY);
-    for(typename vector<City<T>>::iterator it = cities->begin(); it != cities->end(); ++it) {
+    for(std::vector<City>::iterator it = cities->begin(); it != cities->end(); ++it) {
            it->x /= maxAxis;
            it->y /= maxAxis;
     }
@@ -127,7 +122,6 @@ int TSP<T>::normaliseCities(){
     return 0;
 }
 
-template <typename T>
-double TSP<T>::getScale(){
+double TSP::getScale(){
     return TSP::scale;
 }

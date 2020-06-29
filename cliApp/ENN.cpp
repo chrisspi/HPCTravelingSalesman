@@ -7,7 +7,7 @@
 using namespace std;
 
 template<typename T>
-ENN<T>::ENN(std::vector<City<T>>* cities, double alpha, double beta, double initialK, 
+ENN<T>::ENN(std::vector<City>* cities, double alpha, double beta, double initialK, 
 int KUpdatePeriod, double radius, double numPointFactor){
     ENN::alpha = alpha;
     ENN::beta = beta;
@@ -21,7 +21,7 @@ int KUpdatePeriod, double radius, double numPointFactor){
 
     ENN::networkPoints = generateNetworkPoints(ENN::radius, numpoints);
 
-    ENN::v_ia_results = new double[ENN::cities->size()];
+    ENN::v_ia_results = new T[ENN::cities->size()];
 }
 
 template <typename T>
@@ -69,16 +69,19 @@ double ENN<T>::getKNew(){
 }
 
 template <typename T>
-double ENN<T>::v_ia(City<T>& i, NetworkPoint<T>& a){
-    double upper = ENN::v_ia_helper(i,a);
+T ENN<T>::v_ia(City& i, NetworkPoint<T>& a){
+    T upper = ENN::v_ia_helper(i,a);
 
-    double lower = ENN::v_ia_results[i.index-1];
-    if(lower == -9999){
+    float lowerV = reinterpret_cast<float&>(v_ia_results[i.index-1]);
+    T lower = v_ia_results[i.index-1];
+    if(lowerV == 0){
         lower = 0;
         for(typename vector<NetworkPoint<T>>::iterator it = ENN::networkPoints->begin(); it != ENN::networkPoints->end(); ++it) {
             lower += v_ia_helper(i,*it);
         }
         ENN::v_ia_results[i.index-1] = lower;
+
+        //cout << lower << endl;
     }
     
 
@@ -86,11 +89,14 @@ double ENN<T>::v_ia(City<T>& i, NetworkPoint<T>& a){
 }
 
 template <typename T>
-double ENN<T>::v_ia_helper(City<T>& i, NetworkPoint<T>& a){
+T ENN<T>::v_ia_helper(City& i, NetworkPoint<T>& a){
     double t = 2 * pow(K,2);
 
-    double sum_1 = (-pow((i-a).magnitude(),2))/t;
-    double sum = pow(M_E,sum_1);
+    T mag = (i-a).magnitude();
+
+    T sum_1 = -(mag*mag)/t;
+    T sum = exp(sum_1);
+    //T sum = pow(M_E,sum_1);
 
     return sum;
 }
@@ -99,7 +105,7 @@ template <typename T>
 Force<T> ENN<T>::deltaY_a(NetworkPoint<T>& a){
     Force<T> cityForceSum(0,0,0);
 
-    for(typename vector<City<T>>::iterator it = ENN::cities->begin(); it != ENN::cities->end(); ++it) {
+    for(vector<City>::iterator it = ENN::cities->begin(); it != ENN::cities->end(); ++it) {
         cityForceSum += (*it - a) * v_ia(*it,a);
     }
 
@@ -134,8 +140,8 @@ std::vector<int>* ENN<T>::getTSPList(){
     std::vector<int> *tspList = new std::vector<int>;
     for(typename vector<NetworkPoint<T>>::iterator itP = ENN::networkPoints->begin(); itP != ENN::networkPoints->end(); ++itP) {
         double shortestDistance = 2;
-        City<T>* nearestCity;
-        for(typename vector<City<T>>::iterator itC = ENN::cities->begin(); itC != ENN::cities->end(); ++itC) {
+        City* nearestCity;
+        for(vector<City>::iterator itC = ENN::cities->begin(); itC != ENN::cities->end(); ++itC) {
             double distance = ((*itC)-(*itP)).magnitude();
 
             if(distance < shortestDistance){
@@ -151,9 +157,10 @@ std::vector<int>* ENN<T>::getTSPList(){
 
     return tspList;
 }
+
 template <typename T>
-double ENN<T>::getTourLength(double scale){
-    double length = 0;
+T ENN<T>::getTourLength(double scale){
+    T length = 0;
 
     NetworkPoint<T>& prevPoint = networkPoints->back();
     for(typename vector<NetworkPoint<T>>::iterator itP = ENN::networkPoints->begin(); itP != ENN::networkPoints->end(); ++itP) {
@@ -167,6 +174,7 @@ double ENN<T>::getTourLength(double scale){
 template <typename T>
 void ENN<T>::reset_via_results(){
     for(int i=0; i<cities->size(); i++){
-        ENN::v_ia_results[i] = -9999;
+        ENN::v_ia_results[i] = 0;
     }
 }
+

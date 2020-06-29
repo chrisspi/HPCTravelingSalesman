@@ -1,4 +1,5 @@
 #include <cmath>
+#include "vectors/P4_F32vec4.h"
 
 #ifndef TSPVECTOR
 #define TSPVECTOR
@@ -30,11 +31,19 @@ struct TSPVector {
      }
 
      
-     TSPVector operator-(const TSPVector& point){
+     TSPVector operator-(const TSPVector<double>& point){
           T x = this->x - point.x;
           T y = this->y - point.y;
 
           TSPVector p(x,y,0);
+          return p;
+     }
+
+     TSPVector<fvec> operator-(const TSPVector<fvec>& point){
+          fvec x = this->x - point.x;
+          fvec y = this->y - point.y;
+
+          TSPVector<fvec> p(x,y,0);
           return p;
      }
 
@@ -53,6 +62,14 @@ struct TSPVector {
           TSPVector p(x,y,0);
           return p; 
      }
+
+     TSPVector operator*(const fvec factor){
+          T x = this->x * factor;
+          T y = this->y * factor;
+
+          TSPVector p(x,y,0);
+          return p; 
+     }
           
      TSPVector operator*=(const TSPVector& point){
           x += point.x;
@@ -65,13 +82,11 @@ struct TSPVector {
 };
 
 template<typename T>
-     using City = TSPVector<T>;
-template<typename T>
      using Force = TSPVector<T>;
 template<typename T>
      using NetworkPoint = TSPVector<T>;
 
-// typedef TSPVector<T> City;
+typedef TSPVector<double> City;
 // typedef TSPVector<T> Force;
 // typedef TSPVector<T> NetworkPoint;
 #endif
