@@ -2,19 +2,21 @@
 
 #ifndef TSPVECTOR
 #define TSPVECTOR
+
+template <typename T> 
 struct TSPVector {
-     TSPVector( double X, double Y , int Index): x(X), y(Y), index(Index) {};
-     double x;
-     double y;
+     TSPVector( T X, T Y , int Index): x(X), y(Y), index(Index) {};
+     T x;
+     T y;
      int index;
 
-     double magnitude(){
-          return sqrt(pow(x,2)+pow(y,2));
+     T magnitude(){
+          return sqrt(x * x + y * y);
      }
 
      TSPVector operator+(const TSPVector& point){
-          double x = this->x + point.x;
-          double y = this->y + point.y;
+          T x = this->x + point.x;
+          T y = this->y + point.y;
 
           TSPVector p(x,y,0);
           return p;
@@ -29,8 +31,8 @@ struct TSPVector {
 
      
      TSPVector operator-(const TSPVector& point){
-          double x = this->x - point.x;
-          double y = this->y - point.y;
+          T x = this->x - point.x;
+          T y = this->y - point.y;
 
           TSPVector p(x,y,0);
           return p;
@@ -45,8 +47,8 @@ struct TSPVector {
      
      
      TSPVector operator*(const double factor){
-          double x = this->x * factor;
-          double y = this->y * factor;
+          T x = this->x * factor;
+          T y = this->y * factor;
 
           TSPVector p(x,y,0);
           return p; 
@@ -62,7 +64,14 @@ struct TSPVector {
      
 };
 
-typedef TSPVector City;
-typedef TSPVector Force;
-typedef TSPVector NetworkPoint;
+template<typename T>
+     using City = TSPVector<T>;
+template<typename T>
+     using Force = TSPVector<T>;
+template<typename T>
+     using NetworkPoint = TSPVector<T>;
+
+// typedef TSPVector<T> City;
+// typedef TSPVector<T> Force;
+// typedef TSPVector<T> NetworkPoint;
 #endif

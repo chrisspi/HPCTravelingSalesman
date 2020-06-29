@@ -6,9 +6,14 @@
 #include <vector> 
 #include "tspvector.h"
 #include "TSP.h"
+// #include "TSP.cpp"
 #include "ENN.h"
+// #include "ENN.cpp"
+#include "TStopwatch.h"
+#include "vectors/P4_F32vec4.h"
 
-
+typedef fvec DataType;
+ 
 using namespace std;
 
 int main ( int argc, char *argv[]) {
@@ -29,33 +34,37 @@ int main ( int argc, char *argv[]) {
 	cout << "\nInitial coordinates of points: " << endl;
 
 
-	TSP travelingSalesman("berlin52.tsp");
+	TSP<DataType> travelingSalesman("berlin52.tsp");
 
-	vector<City>* cities = travelingSalesman.getCities();
+	vector<City<DataType>>* cities = travelingSalesman.getCities();
 
 	// printing cities
-    for(std::vector<City>::iterator it = cities->begin(); it != cities->end(); ++it) {
+    for(std::vector<City<DataType>>::iterator it = cities->begin(); it != cities->end(); ++it) {
             cout << "City " << ":\t index:" << it->index << ",\t x:" << it->x << ", \t y:" << it->y << endl;
     }
 
-	ENN network(cities);
+	ENN<DataType> network(cities);
     // dynamically allocate vector
-    vector<NetworkPoint> *points = network.generateNetworkPoints(0.1, cities->size());
+    vector<NetworkPoint<DataType>> *points = network.generateNetworkPoints(0.1, cities->size());
 
     // traverse points
-    for(std::vector<NetworkPoint>::iterator it = points->begin(); it != points->end(); ++it) {
+    for(std::vector<NetworkPoint<DataType>>::iterator it = points->begin(); it != points->end(); ++it) {
             cout << "Point " << it->index << ":\tx:" << it->x << ",\ty:" << it->y << endl;
     }
 
-	network.optimizeNetworkPoints(20000);
+	TStopwatch timerScalar;
+	network.optimizeNetworkPoints(100);
+	timerScalar.Stop();
 
-	vector<int>* tspList = network.getTSPList();
+	// vector<int>* tspList = network.getTSPList();
 
-	for(std::vector<int>::iterator it = tspList->begin(); it != tspList->end(); ++it) {
-            cout << "City Index:  " << (*it) << endl;
-    }
+	// for(std::vector<int>::iterator it = tspList->begin(); it != tspList->end(); ++it) {
+            // cout << "City Index:  " << (*it) << endl;
+    // }
 
+	double tScal = timerScalar.RealTime()*1000;
 	cout << "Tour Length: " << network.getTourLength(travelingSalesman.getScale()) << endl;
+	cout << "Time scalar: " << tScal << " ms " << endl;
 
     delete points; // delete points vector
 }
