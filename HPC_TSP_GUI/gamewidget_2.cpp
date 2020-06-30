@@ -18,6 +18,9 @@ GameWidget_2::GameWidget_2(QWidget *parent) :   // Constructor
     timer->setInterval(10);
     connect(timer, SIGNAL(timeout()), this, SLOT(newGeneration()));
 }
+    vector<City> *cities = new vector<City>;
+
+
 
 GameWidget_2::~GameWidget_2()   // Destructor
 {
@@ -41,7 +44,7 @@ void GameWidget_2::clear() // Clear game field
 {
     //
     emit gameEnds(true);
-    //
+    cities->clear();
     update();
 
 }
@@ -54,6 +57,12 @@ int GameWidget_2::interval() // Interval between generations
 void GameWidget_2::setInterval(int msec) // Set interval between generations
 {
     timer->setInterval(msec);
+}
+
+vector<City> GameWidget_2::getCities(){
+
+    return *cities;
+
 }
 
 void GameWidget_2::setAlpha(double in)  // Set Alpha parameter of the algorithm
