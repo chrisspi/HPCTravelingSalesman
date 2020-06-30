@@ -1,13 +1,5 @@
-#include <QMessageBox>
-#include <QTimer>
-#include <QMouseEvent>
-#include <QDebug>
-#include <QRectF>
-#include <QPainter>
-#include <qmath.h>
 #include "gamewidget_2.h"
-#include "QTime"
-
+using namespace std;
 
 GameWidget_2::GameWidget_2(QWidget *parent) :   // Constructor
     QWidget(parent),
@@ -154,6 +146,7 @@ void GameWidget_2::paintNet(QPainter &p)    // Draw elastic net in the current s
 
             float p_x2 = 0;
             float p_y2 = 0;
+            p.drawEllipse(p_x2-2.5, p_y2-2.5, 5, 5);
             p.drawLine(p_x, p_y, p_x2, p_y2);
         }
     }
