@@ -1,7 +1,9 @@
 #include <cmath>
-
+#include <iostream>
 #ifndef TSPVECTOR
 #define TSPVECTOR
+
+
 struct TSPVector {
      TSPVector( double X, double Y , int Index): x(X), y(Y), index(Index) {};
      double x;
