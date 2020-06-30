@@ -1,5 +1,8 @@
 #include "tspvector.h"
 #include <vector>
+
+#define SIMD
+
 template<typename T>
 class ENN{
 
@@ -14,7 +17,7 @@ class ENN{
         std::vector<NetworkPoint<T>>* optimizeNetworkPoints(int iterations);
         //Returns an ordered List of the Cities for the current NetworkPoints
         std::vector<int>* getTSPList();
-        T getTourLength(double scale);
+        double getTourLength(double scale);
         
     private:
         double alpha;
@@ -26,13 +29,14 @@ class ENN{
         std::vector<City>* cities;
         std::vector<NetworkPoint<T>>* networkPoints;
 
-        T* v_ia_results;
+        double* v_ia_results;
 
         double getKNew();
         T v_ia(City& i, NetworkPoint<T>& a);
         T v_ia_helper(City& i, NetworkPoint<T>& a);
         Force<T> deltaY_a(NetworkPoint<T>& a);
         void reset_via_results();
+        void calculateCities();
 
 };
 

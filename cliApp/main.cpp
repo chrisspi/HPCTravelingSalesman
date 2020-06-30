@@ -12,7 +12,11 @@
 #include "TStopwatch.h"
 #include "vectors/P4_F32vec4.h"
 
+#ifdef SIMD
 typedef fvec DataType;
+#else
+typedef double DataType;
+#endif
  
 using namespace std;
 
