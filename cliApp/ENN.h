@@ -1,7 +1,7 @@
 #include "tspvector.h"
 #include <vector>
 
-#define SIMD
+//#define SIMD
 
 template<typename T>
 class ENN{

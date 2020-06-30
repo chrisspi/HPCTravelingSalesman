@@ -38,7 +38,7 @@ int main ( int argc, char *argv[]) {
 	cout << "\nInitial coordinates of points: " << endl;
 
 
-	TSP travelingSalesman("berlin52.tsp");
+	TSP travelingSalesman("att532.tsp");
 
 	vector<City>* cities = travelingSalesman.getCities();
 

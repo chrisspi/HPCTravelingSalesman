@@ -49,6 +49,8 @@ The aim is to have a program that calculates and visualizes the shortest path fo
 - './a.out --simd' not Implemented yet
 - './a.out --graphical interface --simd' not Implemented yet
 
+- SIMD: 'clang++ -std=c++11 -stdlib=libc++ -O3 -fno-tree-vectorize  main.cpp'
+
 
 Terms: 3 weeks, June 17 - July 8;
 • Task 1: TSP with ENN - scalar + graphical interface + tests;
