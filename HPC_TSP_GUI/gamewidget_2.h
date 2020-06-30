@@ -3,8 +3,18 @@
 
 #include <QColor>
 #include <QWidget>
-
 #include <QKeyEvent>
+#include <QMessageBox>
+#include <QTimer>
+#include <QMouseEvent>
+#include <QDebug>
+#include <QRectF>
+#include <QPainter>
+#include <qmath.h>
+#include "QTime"
+#include "../cliApp/tspvector.h"
+#include <cmath>
+
 
 class GameWidget_2 : public QWidget
 {
