@@ -1,13 +1,4 @@
-#include <QMessageBox>
-#include <QTimer>
-#include <QMouseEvent>
-#include <QDebug>
-#include <QRectF>
-#include <QPainter>
-#include <qmath.h>
 #include "gamewidget.h"
-#include "QTime"
-
 
 GameWidget::GameWidget(QWidget *parent) :
     QWidget(parent),
