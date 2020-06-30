@@ -1,6 +1,9 @@
-#include <vector>
 #include "tspvector.h"
 #include <vector>
+#include <cmath>
+#include <list>
+#include <algorithm>
+#include <iostream>
 
 class ENN{
 
