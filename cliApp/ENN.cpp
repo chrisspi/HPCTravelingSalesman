@@ -1,10 +1,4 @@
-#define _USE_MATH_DEFINES
-#include <cmath>
 #include "ENN.h"
-#include <list>
-#include <algorithm>
-#include <iostream>
-
 using namespace std;
 
 ENN::ENN(std::vector<City>* cities, double alpha, double beta, double initialK, 
