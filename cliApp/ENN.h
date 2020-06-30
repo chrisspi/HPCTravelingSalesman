@@ -18,6 +18,7 @@ class ENN{
         //Returns an ordered List of the Cities for the current NetworkPoints
         std::vector<int>* getTSPList();
         double getTourLength(double scale);
+        std::vector<NetworkPoint<T>>* getNetworkPoints();
         
     private:
         double alpha;
@@ -35,8 +36,7 @@ class ENN{
         T v_ia(City& i, NetworkPoint<T>& a);
         T v_ia_helper(City& i, NetworkPoint<T>& a);
         Force<T> deltaY_a(NetworkPoint<T>& a);
-        void reset_via_results();
-        void calculateCities();
+        void calculateCityV_ia();
 
 };
 

@@ -47,9 +47,9 @@ int main ( int argc, char *argv[]) {
             cout << "City " << ":\t index:" << it->index << ",\t x:" << it->x << ", \t y:" << it->y << endl;
     }
 
-	ENN<DataType> network(cities);
+	ENN<DataType> network(cities, 0.5, 1.5);
     // dynamically allocate vector
-    vector<NetworkPoint<DataType>> *points = network.generateNetworkPoints(0.1, cities->size());
+    vector<NetworkPoint<DataType>> *points = network.getNetworkPoints();
 
     // traverse points
     for(std::vector<NetworkPoint<DataType>>::iterator it = points->begin(); it != points->end(); ++it) {
@@ -57,7 +57,7 @@ int main ( int argc, char *argv[]) {
     }
 
 	TStopwatch timerScalar;
-	network.optimizeNetworkPoints(1000);
+	network.optimizeNetworkPoints(2000);
 	timerScalar.Stop();
 
 	// vector<int>* tspList = network.getTSPList();

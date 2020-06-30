@@ -19,6 +19,8 @@ int KUpdatePeriod, double radius, double numPointFactor){
 
     int numpoints = cities->size() * ENN::numPointFactor;
 
+    numpoints += numpoints % 4; //Muss durch 4 teilbar sein
+
     ENN::networkPoints = generateNetworkPoints(ENN::radius, numpoints);
 
     ENN::v_ia_results = new double[ENN::cities->size()];
@@ -33,7 +35,7 @@ vector<NetworkPoint<T>>* ENN<T>::generateNetworkPoints(double radius, unsigned i
     // put all points into the points vector in form of a circle
     unsigned int count = 0;
 	for (double angle = 0; angle <= 2*M_PI; angle+=deltaAngle) {
-        #ifdef SIMD
+       #ifdef SIMD
         float* xFvec = new float[4];
         float* yFvec = new float[4];
         for(int i=0; i< 4; i++){
@@ -47,13 +49,13 @@ vector<NetworkPoint<T>>* ENN<T>::generateNetworkPoints(double radius, unsigned i
         points->push_back(np);
 
         #else
-        points->push_back( NetworkPoint<T>( radius * cos( angle ) + 0.5,  radius * sin( angle ) + 0.5, count++) );
+        points->push_back( NetworkPoint<double>( radius * cos( angle ) + 0.5,  radius * sin( angle ) + 0.5, count++) );
         #endif
         
 	}
-
     return points;
 }
+
 template <typename T>
 vector<NetworkPoint<T>>* ENN<T>::optimizeNetworkPoints(int iterations){
     for(int i=0; i<iterations; i++){
@@ -67,8 +69,7 @@ vector<NetworkPoint<T>>* ENN<T>::optimizeNetworkPoints(int iterations){
 
 template <typename T>
 vector<NetworkPoint<T>>* ENN<T>::optimizeNetworkPoints(){
-    ENN::reset_via_results();
-    ENN::calculateCities();
+    ENN::calculateCityV_ia();
 
     for(typename vector<NetworkPoint<T>>::iterator it = ENN::networkPoints->begin(); it != ENN::networkPoints->end(); ++it) {
         (*it) += deltaY_a(*it);
@@ -91,6 +92,8 @@ T ENN<T>::v_ia(City& i, NetworkPoint<T>& a){
 
     double lower = ENN::v_ia_results[i.index-1];
 
+    //cout << upper  << endl;
+
     return upper/lower;
 }
 
@@ -99,6 +102,8 @@ T ENN<T>::v_ia_helper(City& i, NetworkPoint<T>& a){
     double t = 2 * pow(K,2);
 
     T mag = (i-a).magnitude();
+
+    //cout  << mag << endl;
 
     T sum_1 = -(mag*mag)/t;
     T sum = exp(sum_1);
@@ -126,13 +131,19 @@ Force<T> ENN<T>::deltaY_a(NetworkPoint<T>& a){
             if(it != ENN::networkPoints->end()) a_next = &(*it);
             else a_next = &(*ENN::networkPoints->begin());
 
-            // if(!a_prev) a_prev = &(ENN::points->back());
-
             break;
         }
         a_prev = &(*it);
 
     }
+
+    #ifdef SIMD
+    NetworkPoint<fvec> a_prevShifted(fvec(a_prev->x[3],a.x[0],a.x[1],a.x[2]),fvec(a_prev->y[3],a.y[0],a.y[1],a.y[2]),0);
+    NetworkPoint<fvec> a_nextShifted(fvec(a.x[1],a.x[2],a.x[3],a_next->x[0]),fvec(a.y[1],a.y[2],a.y[3],a_next->y[0]),0);
+
+    a_prev = &a_prevShifted;
+    a_next = &a_nextShifted;
+    #endif
 
     Force<T> pointForce =  (*a_prev + *a_next - (a * 2)) * ENN::beta * ENN::K;
 
@@ -190,14 +201,7 @@ double ENN<T>::getTourLength(double scale){
 }
 
 template <typename T>
-void ENN<T>::reset_via_results(){
-    for(int i=0; i<cities->size(); i++){
-        ENN::v_ia_results[i] = 0;
-    }
-}
-
-template <typename T>
-void ENN<T>::calculateCities(){
+void ENN<T>::calculateCityV_ia(){
     for(vector<City>::iterator itC = ENN::cities->begin(); itC != ENN::cities->end(); ++itC) {
         T lower(0);
         for(typename vector<NetworkPoint<T>>::iterator it = ENN::networkPoints->begin(); it != ENN::networkPoints->end(); ++it) {
@@ -209,5 +213,10 @@ void ENN<T>::calculateCities(){
         ENN::v_ia_results[itC->index-1] = lower;
         #endif
     }
+}
+
+template <typename T>
+std::vector<NetworkPoint<T>>* ENN<T>::getNetworkPoints(){
+    return ENN::networkPoints;
 }
 
