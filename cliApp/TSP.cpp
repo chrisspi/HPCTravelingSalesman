@@ -1,6 +1,3 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
 #include "TSP.h"
 using namespace std;
 
