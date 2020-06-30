@@ -1,3 +1,6 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
 #include "tspvector.h"
 #include <string>
 #include <vector> 
