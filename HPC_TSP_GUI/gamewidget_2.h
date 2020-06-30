@@ -53,7 +53,7 @@ public slots:
     void runIteration();
 
     void AddCity(float x, float y);
-
+    std::vector<City> getCities();
     float CalcDist();
 
 private slots:
