@@ -1,6 +1,6 @@
 #include <QApplication>
 #include "mainwindow.h"
-#include "../cliApp/tspvector.h"
+#include <iostream>
 
 int main(int argc, char *argv[])
 {
