@@ -1,10 +1,5 @@
-#include <QTextStream>
-#include <QFileDialog>
-#include <QDebug>
-#include <QColor>
-#include <QColorDialog>
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
