@@ -100,15 +100,21 @@ void GameWidget_2::mousePressEvent(QMouseEvent *e)  // Add new city to the firld
     float c_y = e->y();
     float fieldX = width();
     float fieldY = height();
-
+    GameWidget_2::AddCity(c_x/fieldX, c_y/fieldY);
     update();
 }
 
 void GameWidget_2::AddCity(float x, float y)
 {
-  emit environmentChanged(true);
+    emit environmentChanged(true);
+    int size = cities->size();
+    City *city = new City (x, y, size);
 
-  update();
+    //std::cout << "X: " << city->x << " Y: " << city->y << std::endl;
+    //std::cout << city->magnitude() << std::endl;
+
+    cities->push_back(*city);
+    update();
 }
 
 void GameWidget_2::paintField(QPainter &p)  // Draw game field
@@ -124,15 +130,11 @@ void GameWidget_2::paintCities(QPainter &p) // Draw cities
     float fieldX = width();
     float fieldY = height();
     p.setBrush(QBrush(Qt::green, Qt::SolidPattern));
-    for( int iCity = 0; iCity < 0; iCity++ ) {
-        float cX, cY;
-
-        float c_x = 0;
-        float c_y = 0;
-        p.drawEllipse(c_x-3.5, c_y-3.5, 7, 7);
+    for(std::vector<City>::iterator itC = cities->begin(); itC != cities->end(); ++itC) {
+        double x = itC->x;
+        double y = itC->y;
+        p.drawEllipse(fieldX*x-3.5, fieldY*y-3.5, 7, 7);
     }
-
-
 }
 
 void GameWidget_2::paintNet(QPainter &p)    // Draw elastic net in the current state
