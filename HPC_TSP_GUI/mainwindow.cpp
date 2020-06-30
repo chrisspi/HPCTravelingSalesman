@@ -50,11 +50,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::loadCities()
 {
+  TSP tsp("/home/stefan/Dokumente/HPCTravelingSalesman/cliApp/berlin52.tsp");
+  std::vector<City> *cities = tsp.getCities();
+  for( int i = 0; i < int(cities->size()); i++ ) {
+    game2->AddCity( cities->at(i).x, cities->at(i).y );
+  }
+/*
   QString filename = QFileDialog::getOpenFileName(this,
                                                   tr("Open saved cities"),
                                                   QDir::homePath());
-
-
   if(filename.length() < 1)
       return;
 
@@ -62,7 +66,7 @@ void MainWindow::loadCities()
 
   std::vector<City>* cities = tsp.getCities();
 
-  /*QFile file(filename);
+  QFile file(filename);
   if(!file.open(QIODevice::ReadOnly))
       return;
   QTextStream in(&file);
@@ -90,8 +94,4 @@ void MainWindow::loadCities()
     }
   game2->fieldSizeX = (xmax - xmin);
   game2->fieldSizeY = (ymax - ymin);*/
-
-  for( int i = 0; i < cities->size(); i++ ) {
-      game2->AddCity( cities->at(i).x, cities->at(i).y );
-    }
 }
