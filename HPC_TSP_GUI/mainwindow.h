@@ -4,7 +4,14 @@
 #include <QMainWindow>
 #include <QColor>
 #include "gamewidget_2.h"
+#include <QTextStream>
+#include <QFileDialog>
+#include <QDebug>
+#include <QColor>
+#include <QColorDialog>
 #include "../cliApp/TSP.h"
+#include "../cliApp/ENN.h"
+#include "ui_mainwindow.h"
 
 namespace Ui {
 class MainWindow;
