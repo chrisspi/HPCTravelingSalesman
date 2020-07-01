@@ -45,7 +45,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::loadCities()
 {
-  TSP tsp("../cliApp/berlin52.tsp");
+    QString filename = QFileDialog::getOpenFileName(this,
+                                                    tr("Open saved cities"),
+                                                    QDir::homePath());
+    if(filename.length() < 1)
+        return;
+  TSP tsp(filename.toStdString());
   std::vector<City> *cities = tsp.getCities();
   for( int i = 0; i < int(cities->size()); i++ ) {
     game2->AddCity( cities->at(i).x, cities->at(i).y );

@@ -75,6 +75,9 @@ private:
 //    TSP travelingSalesman;
     ENN elasticNeuralNet;
 
+    double alpha;
+    double beta;
+    double K;
 
     float wd;
     int wd_same;

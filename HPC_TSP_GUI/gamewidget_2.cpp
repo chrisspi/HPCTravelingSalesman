@@ -7,8 +7,6 @@ GameWidget_2::GameWidget_2(QWidget *parent) :   // Constructor
     elasticNeuralNet(this->cities)
 //    ElasticNet constructor
 {
-
-    points = elasticNeuralNet.getNetworkPoints();
     timer->setInterval(10);
     connect(timer, SIGNAL(timeout()), this, SLOT(newGeneration()));
 }
@@ -26,6 +24,10 @@ void GameWidget_2::startGame(const int &number)  // Start Game
     emit gameStarts(true);
     wd_same = 0;
     generations = number;
+    elasticNeuralNet = ENN(cities, alpha, beta, K);
+
+    points = elasticNeuralNet.getNetworkPoints();
+    emit environmentChanged(true);
     timer->start();
 }
 
@@ -39,6 +41,7 @@ void GameWidget_2::clear() // Clear game field
     //
     emit gameEnds(true);
     this->cities->clear();
+    this->points->clear();
     update();
 
 }
@@ -61,21 +64,22 @@ std::vector<City>* GameWidget_2::getCities(){
 
 void GameWidget_2::setAlpha(double in)  // Set Alpha parameter of the algorithm
 {
+    alpha = in;
 
 }
 
 void GameWidget_2::setBeta(double in)   // Set Beta parameter of the algorithm
 {
-
+    beta = in;
 }
 
 void GameWidget_2::setGamma(double in)  // Set Alpha parameter of the algorithm
 {
-
 }
 
 void GameWidget_2::setK(double in)  // Set K parameter of the algorithm
 {
+    K = in;
 
 }
 
@@ -103,11 +107,10 @@ void GameWidget_2::AddCity(float x, float y)
     float fieldX = width();
     float fieldY = height();
     emit environmentChanged(true);
-    int size = this->cities->size();
+    int size = this->cities->size() + 1;
     //std::cout << "X: " << city->x << " Y: " << city->y << std::endl;
     //std::cout << city->magnitude() << std::endl;
     this->cities->push_back(City(x,y,size));
-    points = elasticNeuralNet.generateNetworkPoints(0.1, size);
     update();
 }
 

@@ -110,8 +110,8 @@ int TSP::normaliseCities(){
     //Scale all points by the maximum Axis Value to fit in the [0,1] Space
     double maxAxis = max(maxX,maxY);
     for(std::vector<City>::iterator it = cities->begin(); it != cities->end(); ++it) {
-           it->x /= maxAxis;
-           it->y /= maxAxis;
+           it->x /= maxX;
+           it->y /= maxY;
     }
 
     TSP::scale = maxAxis;

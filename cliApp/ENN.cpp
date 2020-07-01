@@ -11,15 +11,14 @@ int KUpdatePeriod, double radius, double numPointFactor){
     ENN::numPointFactor = numPointFactor;
     ENN::cities = cities;
 
-    int numpoints = cities->size() * ENN::numPointFactor;
-
-    ENN::networkPoints = generateNetworkPoints(ENN::radius, numpoints);
+    ENN::networkPoints = generateNetworkPoints(ENN::radius, cities->size());
 
     ENN::v_ia_results = new double[ENN::cities->size()];
 }
 
-vector<NetworkPoint>* ENN::generateNetworkPoints(double radius, unsigned int numPoints){
+vector<NetworkPoint>* ENN::generateNetworkPoints(double radius, unsigned int numCities){
 
+    unsigned int numPoints = numCities * ENN::numPointFactor;
     double deltaAngle = 2 * M_PI / numPoints;
 
     vector<NetworkPoint> *points = new vector<NetworkPoint>;
@@ -98,7 +97,10 @@ Force ENN::deltaY_a(NetworkPoint& a){
     Force cityForceSum(0,0,0);
 
     for(std::vector<City>::iterator it = ENN::cities->begin(); it != ENN::cities->end(); ++it) {
-        cityForceSum += (*it - a) * v_ia(*it,a);
+
+        Force first = (*it - a);
+        double second = v_ia(*it,a);
+        cityForceSum = cityForceSum +  first * second ;
     }
 
     Force cityForce = cityForceSum * ENN::alpha;
