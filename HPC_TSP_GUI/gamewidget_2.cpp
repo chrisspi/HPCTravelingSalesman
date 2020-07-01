@@ -1,16 +1,18 @@
 #include "gamewidget_2.h"
-using namespace std;
 
 GameWidget_2::GameWidget_2(QWidget *parent) :   // Constructor
     QWidget(parent),
     timer(new QTimer(this)),
-    generations(-1)
+    generations(-1),
+    elasticNeuralNet(this->cities)
 //    ElasticNet constructor
 {
+
+    points = elasticNeuralNet.getNetworkPoints();
     timer->setInterval(10);
     connect(timer, SIGNAL(timeout()), this, SLOT(newGeneration()));
 }
-    vector<City> *cities = new vector<City>;
+
 
 
 
@@ -36,7 +38,7 @@ void GameWidget_2::clear() // Clear game field
 {
     //
     emit gameEnds(true);
-    cities->clear();
+    this->cities->clear();
     update();
 
 }
@@ -51,9 +53,9 @@ void GameWidget_2::setInterval(int msec) // Set interval between generations
     timer->setInterval(msec);
 }
 
-vector<City> GameWidget_2::getCities(){
+std::vector<City>* GameWidget_2::getCities(){
 
-    return *cities;
+    return this->cities;
 
 }
 
@@ -98,14 +100,14 @@ void GameWidget_2::mousePressEvent(QMouseEvent *e)  // Add new city to the firld
 
 void GameWidget_2::AddCity(float x, float y)
 {
+    float fieldX = width();
+    float fieldY = height();
     emit environmentChanged(true);
-    int size = cities->size();
-    City *city = new City (x, y, size);
-
+    int size = this->cities->size();
     //std::cout << "X: " << city->x << " Y: " << city->y << std::endl;
     //std::cout << city->magnitude() << std::endl;
-
-    cities->push_back(*city);
+    this->cities->push_back(City(x,y,size));
+    points = elasticNeuralNet.generateNetworkPoints(0.1, size);
     update();
 }
 
@@ -122,7 +124,7 @@ void GameWidget_2::paintCities(QPainter &p) // Draw cities
     float fieldX = width();
     float fieldY = height();
     p.setBrush(QBrush(Qt::green, Qt::SolidPattern));
-    for(std::vector<City>::iterator itC = cities->begin(); itC != cities->end(); ++itC) {
+    for(std::vector<City>::iterator itC = this->cities->begin(); itC != this->cities->end(); ++itC) {
         double x = itC->x;
         double y = itC->y;
         p.drawEllipse(fieldX*x-3.5, fieldY*y-3.5, 7, 7);
@@ -134,21 +136,22 @@ void GameWidget_2::paintNet(QPainter &p)    // Draw elastic net in the current s
     float fieldX = width();
     float fieldY = height();
     p.setBrush(QBrush(Qt::red, Qt::SolidPattern));
-    if( 0 ) {
-        for( int iPoint = 0; iPoint < 0; iPoint++ ) {
-            float pX, pY;
 
-            float p_x = 0;
-            float p_y = 0;
-            p.drawEllipse(p_x-2.5, p_y-2.5, 5, 5);
-            int nextPointIndex = 0;
-            float pX2, pY2;
+    for(std::vector<NetworkPoint>::iterator itP = this->points->begin(); itP != this->points->end(); ++itP)  {
+        //float pX, pY;
 
-            float p_x2 = 0;
-            float p_y2 = 0;
-            p.drawEllipse(p_x2-2.5, p_y2-2.5, 5, 5);
-            p.drawLine(p_x, p_y, p_x2, p_y2);
-        }
+        float p_x = itP->x * fieldX;
+        float p_y = itP->y * fieldY;
+        p.drawEllipse(p_x-2.5, p_y-2.5, 5, 5);
+        std::vector<NetworkPoint>::iterator nextPoint = itP+1;
+        if ( nextPoint == this->points->end() ) nextPoint = this->points->begin();
+
+        //  float pX2, pY2;
+
+        float p_x2 = nextPoint->x * fieldX;
+        float p_y2 = nextPoint->y * fieldY;
+        p.drawEllipse(p_x2-2.5, p_y2-2.5, 5, 5);
+        p.drawLine(p_x, p_y, p_x2, p_y2);
     }
 }
 
@@ -162,26 +165,26 @@ void GameWidget_2::initPoints()
 
 void GameWidget_2::runIteration()   // Run one iteration of the algorithm
 {
-    if( 0 ) {
-
-    }
+    elasticNeuralNet.optimizeNetworkPoints();
     update();
 }
 
 void GameWidget_2::newGeneration()  // Start the evolution of elastic net and update the game field
 {
-    if( 0 ) {    // Exit function if evolution is finished (worst distance is low) or if number of iteration is too high
+    if( generationsCount >= generations) {    // Exit function if evolution is finished (worst distance is low) or if number of iteration is too high
 
+        generationsCount = 0;
         emit gameEnds(true);
+        stopGame();
         return;
     }
     int interval = 1;
 
-    if( 0 ) {
-        for( int i = 0; i < interval; i++ ) {   // Increasing the number of iterations per generation to make visualisation faster
-//            ElasticNet iteration
-        }
+    for( int i = 0; i < interval; i++ ) {   // Increasing the number of iterations per generation to make visualisation faster
+        elasticNeuralNet.optimizeNetworkPoints();
     }
+
+    generationsCount++;
     update();
 }
 

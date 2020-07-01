@@ -45,7 +45,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::loadCities()
 {
-  TSP tsp("/home/stefan/Dokumente/HPCTravelingSalesman/cliApp/berlin52.tsp");
+  TSP tsp("../cliApp/berlin52.tsp");
   std::vector<City> *cities = tsp.getCities();
   for( int i = 0; i < int(cities->size()); i++ ) {
     game2->AddCity( cities->at(i).x, cities->at(i).y );

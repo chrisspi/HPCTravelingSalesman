@@ -1,3 +1,5 @@
+#ifndef ENNGUARD
+#define ENNGUARD
 #define _USE_MATH_DEFINES
 #include "tspvector.h"
 #include <vector>
@@ -13,6 +15,10 @@ class ENN{
 
         //Generates numPoints Network Points with the given radius around the center (0.5,0.5)
         std::vector<NetworkPoint>* generateNetworkPoints(double radius, unsigned int numPoints);
+        //Get networkPoints
+        std::vector<NetworkPoint>* getNetworkPoints();
+        //Get networkPoints
+        void setNetworkPoints(std::vector<NetworkPoint>* points);
         //Optimize Network Points for a single Iteration. Returns the updated NetworkPoints
         std::vector<NetworkPoint>* optimizeNetworkPoints();
         //Optimize Network Points for the given Iterations. Returns the updated NetworkPoints
@@ -40,3 +46,4 @@ class ENN{
         void reset_via_results();
 
 };
+#endif

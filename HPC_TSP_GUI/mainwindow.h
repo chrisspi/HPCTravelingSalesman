@@ -11,6 +11,7 @@
 #include <QColorDialog>
 #include "../cliApp/TSP.h"
 #include "../cliApp/ENN.h"
+#include "../cliApp/tspvector.h"
 #include "ui_mainwindow.h"
 
 namespace Ui {

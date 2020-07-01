@@ -32,6 +32,15 @@ vector<NetworkPoint>* ENN::generateNetworkPoints(double radius, unsigned int num
     return points;
 }
 
+void ENN::setNetworkPoints(vector<NetworkPoint>* points){
+    ENN::networkPoints = points;
+}
+
+vector<NetworkPoint>* ENN::getNetworkPoints(){
+    return ENN::networkPoints;
+}
+
+
 vector<NetworkPoint>* ENN::optimizeNetworkPoints(int iterations){
     for(int i=0; i<iterations; i++){
         std::cout << "Iteration:" << i << std::endl;

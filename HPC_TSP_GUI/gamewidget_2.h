@@ -12,6 +12,8 @@
 #include <QPainter>
 #include <qmath.h>
 #include "QTime"
+#include "../cliApp/TSP.h"
+#include "../cliApp/ENN.h"
 #include "../cliApp/tspvector.h"
 #include <cmath>
 
@@ -53,7 +55,7 @@ public slots:
     void runIteration();
 
     void AddCity(float x, float y);
-    std::vector<City> getCities();
+    std::vector<City>* getCities();
     float CalcDist();
 
 private slots:
@@ -64,8 +66,16 @@ private slots:
 
 private:
     QTimer* timer;
-    int generations;
+
+    unsigned int generations;
+    unsigned int generationsCount = 0;
 //    ElasticNet
+    std::vector<City> *cities = new std::vector<City>;
+    std::vector<NetworkPoint> *points = new std::vector<NetworkPoint>;
+//    TSP travelingSalesman;
+    ENN elasticNeuralNet;
+
+
     float wd;
     int wd_same;
 };

@@ -1,3 +1,5 @@
+#ifndef TSPGUARD
+#define TSPGUARD
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -19,3 +21,4 @@ class TSP{
         std::vector<City> *cities;
         int normaliseCities();
 };
+#endif
