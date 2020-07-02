@@ -31,7 +31,7 @@ class ENN{
         double numPointFactor;
         std::vector<City>* cities;
         std::vector<NetworkPoint<T>>* networkPoints;
-
+        std::vector<NetworkPoint<T>> networkPointsCpy; //Copy of network Points at iteration start, sothat points are independent (OpenMP Requirement)
         double* v_ia_results;
 
         double getKNew();

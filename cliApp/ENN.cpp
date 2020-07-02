@@ -71,9 +71,11 @@ template <typename T>
 vector<NetworkPoint<T>>* ENN<T>::optimizeNetworkPoints(){
     ENN::calculateCityV_ia();
 
-    //#ifdef OPENMP
-    //#pragma omp parallel for num_threads(omp_get_num_procs()) 
-    //#endif
+    ENN::networkPointsCpy = *ENN::networkPoints;
+
+    #ifdef OPENMP
+    #pragma omp parallel for num_threads(omp_get_num_procs()) 
+    #endif
     for(typename vector<NetworkPoint<T>>::iterator it = ENN::networkPoints->begin(); it != ENN::networkPoints->end(); ++it) {
         (*it) += deltaY_a(*it);
     }
@@ -128,11 +130,11 @@ Force<T> ENN<T>::deltaY_a(NetworkPoint<T>& a){
 
     NetworkPoint<T>* a_prev = &(ENN::networkPoints->back());
     NetworkPoint<T>* a_next;
-    for(typename vector<NetworkPoint<T>>::iterator it = ENN::networkPoints->begin(); it != ENN::networkPoints->end(); ++it) {
+    for(typename vector<NetworkPoint<T>>::iterator it = ENN::networkPointsCpy.begin(); it != ENN::networkPointsCpy.end(); ++it) {
         if(it->index == a.index){
             ++it;
-            if(it != ENN::networkPoints->end()) a_next = &(*it);
-            else a_next = &(*ENN::networkPoints->begin());
+            if(it != ENN::networkPointsCpy.end()) a_next = &(*it);
+            else a_next = &(*ENN::networkPointsCpy.begin());
 
             break;
         }
