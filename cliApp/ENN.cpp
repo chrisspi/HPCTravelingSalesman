@@ -71,6 +71,9 @@ template <typename T>
 vector<NetworkPoint<T>>* ENN<T>::optimizeNetworkPoints(){
     ENN::calculateCityV_ia();
 
+    //#ifdef OPENMP
+    //#pragma omp parallel for num_threads(omp_get_num_procs()) 
+    //#endif
     for(typename vector<NetworkPoint<T>>::iterator it = ENN::networkPoints->begin(); it != ENN::networkPoints->end(); ++it) {
         (*it) += deltaY_a(*it);
     }
@@ -202,6 +205,9 @@ double ENN<T>::getTourLength(double scale){
 
 template <typename T>
 void ENN<T>::calculateCityV_ia(){
+    #ifdef OPENMP
+    #pragma omp parallel for num_threads(omp_get_num_procs())
+    #endif
     for(vector<City>::iterator itC = ENN::cities->begin(); itC != ENN::cities->end(); ++itC) {
         T lower(0);
         for(typename vector<NetworkPoint<T>>::iterator it = ENN::networkPoints->begin(); it != ENN::networkPoints->end(); ++it) {

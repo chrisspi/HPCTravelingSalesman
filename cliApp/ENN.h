@@ -1,7 +1,9 @@
 #include "tspvector.h"
 #include <vector>
+#include "omp.h"
 
-//#define SIMD
+#define SIMD
+#define OPENMP
 
 template<typename T>
 class ENN{

@@ -20,6 +20,8 @@ typedef double DataType;
  
 using namespace std;
 
+//MacOS: clang++ -std=c++11 -stdlib=libc++ -O3 -fno-tree-vectorize -Xpreprocessor -fopenmp -lomp  main.cpp 
+
 int main ( int argc, char *argv[]) {
 
 	unsigned int numCitys = 10;
