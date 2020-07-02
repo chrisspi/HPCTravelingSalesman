@@ -3,10 +3,10 @@
 GameWidget_2::GameWidget_2(QWidget *parent) :   // Constructor
     QWidget(parent),
     timer(new QTimer(this)),
-    generations(-1),
     elasticNeuralNet(this->cities)
 //    ElasticNet constructor
 {
+
     timer->setInterval(10);
     connect(timer, SIGNAL(timeout()), this, SLOT(newGeneration()));
 }
@@ -22,13 +22,19 @@ GameWidget_2::~GameWidget_2()   // Destructor
 void GameWidget_2::startGame(const int &number)  // Start Game
 {
     emit gameStarts(true);
-    wd_same = 0;
-    generations = number;
-    elasticNeuralNet = ENN(cities, alpha, beta, K);
+     if (!this->networkRunning) {
+         wd_same = 0;
+     //    generations = number;
+         generationsCount = 0;
+      //   elasticNeuralNet = ENN(cities, alpha, beta, K);
+         elasticNeuralNet = ENN(cities, this->alpha, this->beta, this->k, this->kUpdatePeriod, this->radius, this->numPointFactor);
+         points = elasticNeuralNet.getNetworkPoints();
+     }
 
-    points = elasticNeuralNet.getNetworkPoints();
+    this->networkRunning = true;
     emit environmentChanged(true);
     timer->start();
+    this->networkRunning = true;
 }
 
 void GameWidget_2::stopGame()  //Stop Game
@@ -40,8 +46,18 @@ void GameWidget_2::clear() // Clear game field
 {
     //
     emit gameEnds(true);
-    this->cities->clear();
+    this->networkRunning = false;
     this->points->clear();
+    update();
+
+}
+
+void GameWidget_2::clearCities() // Clear game field
+{
+    //
+    emit gameEnds(true);
+    this->networkRunning = false;
+    this->cities->clear();
     update();
 
 }
@@ -49,6 +65,12 @@ void GameWidget_2::clear() // Clear game field
 int GameWidget_2::interval() // Interval between generations
 {
     return timer->interval();
+}
+
+
+void GameWidget_2::setGenerations(int in) //set generations
+{
+    this->generations = abs(in);
 }
 
 void GameWidget_2::setInterval(int msec) // Set interval between generations
@@ -64,13 +86,13 @@ std::vector<City>* GameWidget_2::getCities(){
 
 void GameWidget_2::setAlpha(double in)  // Set Alpha parameter of the algorithm
 {
-    alpha = in;
+    this->alpha = in;
 
 }
 
 void GameWidget_2::setBeta(double in)   // Set Beta parameter of the algorithm
 {
-    beta = in;
+    this->beta = in;
 }
 
 void GameWidget_2::setGamma(double in)  // Set Alpha parameter of the algorithm
@@ -79,8 +101,20 @@ void GameWidget_2::setGamma(double in)  // Set Alpha parameter of the algorithm
 
 void GameWidget_2::setK(double in)  // Set K parameter of the algorithm
 {
-    K = in;
+    this->k = in;
 
+}
+
+void GameWidget_2::setKUpdatePeriod(int in) {
+    this->kUpdatePeriod = in;
+}
+
+void GameWidget_2::setRadius(double in) {
+    this->radius = in;
+}
+
+void GameWidget_2::setNumPointFactor(double in) {
+    this->numPointFactor = in;
 }
 
 void GameWidget_2::paintEvent(QPaintEvent *)    // Draw all cities and elastic net on the screen
@@ -176,7 +210,6 @@ void GameWidget_2::newGeneration()  // Start the evolution of elastic net and up
 {
     if( generationsCount >= generations) {    // Exit function if evolution is finished (worst distance is low) or if number of iteration is too high
 
-        generationsCount = 0;
         emit gameEnds(true);
         stopGame();
         return;
@@ -187,7 +220,7 @@ void GameWidget_2::newGeneration()  // Start the evolution of elastic net and up
         elasticNeuralNet.optimizeNetworkPoints();
     }
 
-    generationsCount++;
+    emit newGeneration(++generationsCount);
     update();
 }
 

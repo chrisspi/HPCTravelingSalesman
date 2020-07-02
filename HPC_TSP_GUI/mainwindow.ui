@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>945</width>
     <height>540</height>
    </rect>
   </property>
@@ -51,7 +51,7 @@
            <rect>
             <x>520</x>
             <y>0</y>
-            <width>241</width>
+            <width>401</width>
             <height>421</height>
            </rect>
           </property>
@@ -91,12 +91,25 @@
               <widget class="QPushButton" name="clearButton2">
                <property name="maximumSize">
                 <size>
-                 <width>75</width>
+                 <width>89</width>
                  <height>32</height>
                 </size>
                </property>
                <property name="text">
-                <string>Clear</string>
+                <string>Clear Points</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="clearCitiesButton">
+               <property name="maximumSize">
+                <size>
+                 <width>87</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Clear Cities</string>
                </property>
               </widget>
              </item>
@@ -142,6 +155,39 @@
             </layout>
            </item>
            <item>
+            <layout class="QHBoxLayout" name="controlLayout_14">
+             <property name="sizeConstraint">
+              <enum>QLayout::SetDefaultConstraint</enum>
+             </property>
+             <item>
+              <widget class="QLabel" name="label2_8">
+               <property name="text">
+                <string>Max. Generations</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="maxGenerationsBox">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>100000</number>
+               </property>
+               <property name="value">
+                <number>1000</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
             <layout class="QHBoxLayout" name="controlLayout_6">
              <property name="sizeConstraint">
               <enum>QLayout::SetDefaultConstraint</enum>
@@ -174,7 +220,7 @@
                 <double>0.100000000000000</double>
                </property>
                <property name="value">
-                <double>0.300000000000000</double>
+                <double>1.000000000000000</double>
                </property>
               </widget>
              </item>
@@ -213,7 +259,7 @@
                 <double>0.100000000000000</double>
                </property>
                <property name="value">
-                <double>0.300000000000000</double>
+                <double>1.000000000000000</double>
                </property>
               </widget>
              </item>
@@ -252,7 +298,7 @@
                 <double>0.100000000000000</double>
                </property>
                <property name="value">
-                <double>1.500000000000000</double>
+                <double>1.000000000000000</double>
                </property>
               </widget>
              </item>
@@ -298,26 +344,144 @@
             </layout>
            </item>
            <item>
+            <layout class="QHBoxLayout" name="controlLayout_9">
+             <property name="sizeConstraint">
+              <enum>QLayout::SetDefaultConstraint</enum>
+             </property>
+             <item>
+              <widget class="QLabel" name="label2_7">
+               <property name="text">
+                <string>KUpdatePeriod</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="kUpdatePeriodBox">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="value">
+                <number>25</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="controlLayout_10">
+             <property name="sizeConstraint">
+              <enum>QLayout::SetDefaultConstraint</enum>
+             </property>
+             <item>
+              <widget class="QLabel" name="radiusLabel">
+               <property name="text">
+                <string>radius</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QDoubleSpinBox" name="radiusBox">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="decimals">
+                <number>3</number>
+               </property>
+               <property name="minimum">
+                <double>0.000000000000000</double>
+               </property>
+               <property name="maximum">
+                <double>0.300000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.010000000000000</double>
+               </property>
+               <property name="value">
+                <double>0.100000000000000</double>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="controlLayout_13">
+             <property name="sizeConstraint">
+              <enum>QLayout::SetDefaultConstraint</enum>
+             </property>
+             <item>
+              <widget class="QLabel" name="label2_11">
+               <property name="text">
+                <string>numPointFactor</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QDoubleSpinBox" name="numPointFactorBox">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="decimals">
+                <number>1</number>
+               </property>
+               <property name="minimum">
+                <double>0.000000000000000</double>
+               </property>
+               <property name="maximum">
+                <double>10.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.100000000000000</double>
+               </property>
+               <property name="stepType">
+                <enum>QAbstractSpinBox::DefaultStepType</enum>
+               </property>
+               <property name="value">
+                <double>2.500000000000000</double>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
             <widget class="QPushButton" name="loadButton_2">
              <property name="text">
               <string>Load</string>
              </property>
             </widget>
            </item>
-           <item>
-            <spacer name="verticalSpacer_3">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
           </layout>
+         </widget>
+         <widget class="QLCDNumber" name="lcdNumber">
+          <property name="geometry">
+           <rect>
+            <x>660</x>
+            <y>432</y>
+            <width>251</width>
+            <height>41</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label">
+          <property name="geometry">
+           <rect>
+            <x>521</x>
+            <y>426</y>
+            <width>141</width>
+            <height>51</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Current Generation:</string>
+          </property>
          </widget>
         </widget>
        </widget>

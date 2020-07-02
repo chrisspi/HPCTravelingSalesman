@@ -36,6 +36,7 @@ signals:
     //when one of the cell has been changed,emit this signal to lock the universeSize
     void environmentChanged(bool ok);
     void gameStarts(bool ok);
+    void newGeneration(int gen);
     //when game is over or clear is called,emit it to unlock the universeSize
     void gameEnds(bool ok);
 
@@ -43,6 +44,7 @@ public slots:
     void startGame(const int &number = -1); // start
     void stopGame(); // finish
     void clear(); // clear
+    void clearCities(); // clear the cities
 
     int interval(); // interval between generations
     void setInterval(int msec); // set interval between generations
@@ -50,6 +52,18 @@ public slots:
     void setBeta(double in);
     void setGamma(double in);
     void setK(double in);
+    void setKUpdatePeriod(int in);
+    void setRadius(double in);
+    void setNumPointFactor(double in);
+    void setGenerations(int in);
+
+    double getAlpha(){return this->alpha;};
+    double getBeta(){return this->beta;};
+    double getK(){return this->k;};
+    unsigned int getKUpdatePeriod(){return this->kUpdatePeriod;};
+    double getRadius(){return this->radius;};
+    double getNumPointFactor(){return this->numPointFactor;};
+    int getGenerations(){return this->generations;};
 
     void initPoints();
     void runIteration();
@@ -67,7 +81,7 @@ private slots:
 private:
     QTimer* timer;
 
-    unsigned int generations;
+    int generations = 10000;
     unsigned int generationsCount = 0;
 //    ElasticNet
     std::vector<City> *cities = new std::vector<City>;
@@ -75,9 +89,15 @@ private:
 //    TSP travelingSalesman;
     ENN elasticNeuralNet;
 
-    double alpha;
-    double beta;
-    double K;
+    double alpha = 1.0;
+    double beta = 1.0;
+    double k = 0.1;
+    int  kUpdatePeriod = 25;
+    double radius = 0.1;
+    double numPointFactor = 2.5;
+
+    bool networkRunning = false;
+
 
     float wd;
     int wd_same;
