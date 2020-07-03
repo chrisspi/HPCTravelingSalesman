@@ -38,7 +38,8 @@ vector<City>* TSP::getCities(){
     return TSP::cities;
 }
 
-// 
+// Parse TSP File
+// Returns Vector of Cities
 int TSP::parseTSP(vector<string> *tsp){
     TSP::cities = new vector<City>;
 

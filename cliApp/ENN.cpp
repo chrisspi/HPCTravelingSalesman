@@ -97,8 +97,6 @@ T ENN<T>::v_ia(City& i, NetworkPoint<T>& a){
 
     double lower = ENN::v_ia_results[i.index-1];
 
-    //cout << upper  << endl;
-
     return upper/lower;
 }
 
@@ -108,11 +106,8 @@ T ENN<T>::v_ia_helper(City& i, NetworkPoint<T>& a){
 
     T mag = (i-a).magnitude();
 
-    //cout  << mag << endl;
-
     T sum_1 = -(mag*mag)/t;
     T sum = exp(sum_1);
-    //T sum = pow(M_E,sum_1);
 
     return sum;
 }
@@ -181,7 +176,7 @@ std::vector<int>* ENN<T>::getTSPList(){
 }
 
 template <typename T>
-double ENN<T>::getTourLength(double scale){
+double ENN<T>::getTourLength(double scale){ //Todo: X/Y Scale
     double length = 0;
 
     NetworkPoint<T>& prevPoint = networkPoints->back();
