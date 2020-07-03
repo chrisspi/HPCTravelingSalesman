@@ -41,20 +41,27 @@ The aim is to have a program that calculates and visualizes the shortest path fo
 ### ---How to get and start the Program---
 
 - 'git clone https://github.com/chrisspi/HPCTravelingSalesman.git'
-- 'cd HPCTravelingSalesman'
-- 'cd cliApp'
-- 'make'
-- './a.out'
-- './a.out --graphical interface' not Implemented yet
-- './a.out --simd' not Implemented yet
-- './a.out --graphical interface --simd' not Implemented yet
+- 'git branch'
+    - 'Master-branch mit GUI'
+    - 'git switch master'
+    - 'cd HPCTravelingSalesman'
+    - 'cd cliApp'
+    - 'make'
+    - './a.out'
+
+    - 'SIMDparallel-branch'
+    - 'git switch SIMDparallel'
+    - 'cd HPCTravelingSalesman'
+    - 'cd cliApp'
+    - 'make'
+    - './a.out'
 
 
 Terms: 3 weeks, June 17 - July 8;
-• Task 1: TSP with ENN - scalar + graphical interface + tests;
-• Task 2: TSP with ENN - console application with SIMD and OpenMP;
-• Task 3: Study of the program and the results obtained;
-• Program + slides + video presentation
+- Task 1: TSP with ENN - scalar + graphical interface + tests;
+- Task 2: TSP with ENN - console application with SIMD and OpenMP;
+- Task 3: Study of the program and the results obtained;
+- Program + slides + video presentation
 
 
  [Wikipedia page](https://de.wikipedia.org/wiki/Qt_(Bibliothek))
