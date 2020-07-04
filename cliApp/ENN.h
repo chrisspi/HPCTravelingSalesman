@@ -3,8 +3,8 @@
 #include "omp.h"
 
 //Define which Paralelization Settings are used, Comment out to not use them
-//#define SIMD
-//#define OPENMP
+#define SIMD
+#define OPENMP
 
 template<typename T>
 class ENN{

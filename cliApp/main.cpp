@@ -58,6 +58,7 @@ int main ( int argc, char *argv[]) {
             cout << "Point " << it->index << ":\tx:" << it->x << ",\ty:" << it->y << endl;
     }
 
+	cout << "Optimization running!" << endl;
 	TStopwatch timerScalar;
 	network.optimizeNetworkPoints(2000);
 	timerScalar.Stop();

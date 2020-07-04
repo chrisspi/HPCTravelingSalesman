@@ -59,7 +59,7 @@ vector<NetworkPoint<T>>* ENN<T>::generateNetworkPoints(double radius, unsigned i
 template <typename T>
 vector<NetworkPoint<T>>* ENN<T>::optimizeNetworkPoints(int iterations){
     for(int i=0; i<iterations; i++){
-        std::cout << "Iteration:" << i << std::endl;
+        //std::cout << "Iteration:" << i << std::endl;
 
         optimizeNetworkPoints();
     }
