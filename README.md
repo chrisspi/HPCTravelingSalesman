@@ -40,22 +40,23 @@ The aim is to have a program that calculates and visualizes the shortest path fo
 
 ### ---How to get and start the Program---
 
-- 'git clone https://github.com/chrisspi/HPCTravelingSalesman.git'
-- 'git branch'
-    - 'Master-branch mit GUI'
-    - 'git switch master'
-    - 'cd HPCTravelingSalesman'
-    - 'cd cliApp'
-    - 'make'
-    - './a.out'
-
-    - 'SIMDparallel-branch'
-    - 'git switch SIMDparallel'
-    - 'cd HPCTravelingSalesman'
-    - 'cd cliApp'
-    - 'make'
-    - './a.out'
-
+- 'git clone https://github.com/chrisspi/HPCTravelingSalesman.git'  
+    - Branch 'master'
+        - 'starten mit GUI'
+            - Öffne QT Creator
+            - Öffne das File HPC_TSP.pro im Projektordner
+            - Klicke im linken reiter auf die Datei /HPC_TSP_GUI/main.cpp
+            - Ausführen -> Strg + R
+         - starten über Command Line Interface
+            - Gehe in den Ordner HPCTravelingSalesman/cliApp/
+            - Führe zum Compilieren 'make' aus
+            - Zum starten des Programs führe nun './a.out' aus
+    - Branch 'SIMDparallel'
+        - 'starten über Command Line Interface'
+            - 'cd HPCTravelingSalesman/cliApp/'
+            - 'MacOS: clang++ -std=c++11 -stdlib=libc++ -O3 -fno-tree-vectorize -Xpreprocessor -fopenmp -lomp  main.cpp 
+            - 'Linux: g++ -O3 -fno-tree-vectorize -fopenmp -lomp  main.cpp
+            - './a.out'
 
 Terms: 3 weeks, June 17 - July 8;
 - Task 1: TSP with ENN - scalar + graphical interface + tests;
