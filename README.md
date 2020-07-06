@@ -40,24 +40,32 @@ The aim is to have a program that calculates and visualizes the shortest path fo
 
 ### ---How to get and start the Program---
 
-- 'git clone https://github.com/chrisspi/HPCTravelingSalesman.git'
-- 'cd HPCTravelingSalesman'
-- 'cd cliApp'
-- 'make'
-- './a.out'
-- './a.out --graphical interface' not Implemented yet
-- './a.out --simd' not Implemented yet
-- './a.out --graphical interface --simd' not Implemented yet
-
-- SIMD: 'clang++ -std=c++11 -stdlib=libc++ -O3 -fno-tree-vectorize  main.cpp'
-
+- 'git clone https://github.com/chrisspi/HPCTravelingSalesman.git'  
+    - Branch 'master'
+        - 'starten mit GUI'
+            - Öffne QT Creator
+            - Öffne das File HPC_TSP.pro im Projektordner
+            - Klicke im linken reiter auf die Datei /HPC_TSP_GUI/main.cpp
+            - Ausführen -> Strg + R
+         - starten über Command Line Interface
+            - Gehe in den Ordner HPCTravelingSalesman/cliApp/
+            - Führe zum Compilieren 'make' aus
+            - Zum starten des Programs führe nun './a.out' aus
+    - Branch 'SIMDparallel'
+        - 'starten über Command Line Interface'
+            - 'cd HPCTravelingSalesman/cliApp/'
+            - MacOS: 
+                'clang++ -std=c++11 -stdlib=libc++ -O3 -fno-tree-vectorize -Xpreprocessor -fopenmp -lomp  main.cpp'
+            - Linux: 
+                'g++ -O3 -fno-tree-vectorize -fopenmp -lomp  main.cpp'
+            - './a.out'
 
 Terms: 3 weeks, June 17 - July 8;
-• Task 1: TSP with ENN - scalar + graphical interface + tests;
-• Task 2: TSP with ENN - console application with SIMD and OpenMP;
-• Task 3: Study of the program and the results obtained;
-• Program + slides + video presentation
+- Task 1: TSP with ENN - scalar + graphical interface + tests;
+- Task 2: TSP with ENN - console application with SIMD and OpenMP;
+- Task 3: Study of the program and the results obtained;
+- Program + slides + video presentation
 
 
  [Wikipedia page](https://de.wikipedia.org/wiki/Qt_(Bibliothek))
- [Manual (German)](https://de.wikibooks.org/wiki/Qt_für_C%2B%2B-Anfänge)
+ [Manual (German)](https://de.wikibooks.org/wiki/Qt_für_C%2B%2B-Anfänger)
