@@ -54,8 +54,10 @@ The aim is to have a program that calculates and visualizes the shortest path fo
     - Branch 'SIMDparallel'
         - 'starten über Command Line Interface'
             - 'cd HPCTravelingSalesman/cliApp/'
-            - 'MacOS: clang++ -std=c++11 -stdlib=libc++ -O3 -fno-tree-vectorize -Xpreprocessor -fopenmp -lomp  main.cpp 
-            - 'Linux: g++ -O3 -fno-tree-vectorize -fopenmp -lomp  main.cpp
+            - MacOS: 
+                'clang++ -std=c++11 -stdlib=libc++ -O3 -fno-tree-vectorize -Xpreprocessor -fopenmp -lomp  main.cpp'
+            - Linux: 
+                'g++ -O3 -fno-tree-vectorize -fopenmp -lomp  main.cpp'
             - './a.out'
 
 Terms: 3 weeks, June 17 - July 8;
