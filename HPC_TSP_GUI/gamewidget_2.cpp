@@ -19,6 +19,13 @@ GameWidget_2::~GameWidget_2()   // Destructor
 
 }
 
+
+std::vector<City>* GameWidget_2::getCities(){
+
+    return this->cities;
+
+}
+
 void GameWidget_2::startGame(const int &number)  // Start Game
 {
     emit gameStarts(true);
@@ -78,11 +85,6 @@ void GameWidget_2::setInterval(int msec) // Set interval between generations
     timer->setInterval(msec);
 }
 
-std::vector<City>* GameWidget_2::getCities(){
-
-    return this->cities;
-
-}
 
 void GameWidget_2::setAlpha(double in)  // Set Alpha parameter of the algorithm
 {
