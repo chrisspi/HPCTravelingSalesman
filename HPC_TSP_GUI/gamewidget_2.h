@@ -37,6 +37,7 @@ signals:
     void environmentChanged(bool ok);
     void gameStarts(bool ok);
     void newGeneration(int gen);
+    void showDistance(double dist);
     //when game is over or clear is called,emit it to unlock the universeSize
     void gameEnds(bool ok);
 
@@ -56,7 +57,9 @@ public slots:
     void setRadius(double in);
     void setNumPointFactor(double in);
     void setGenerations(int in);
+    void setScale(TSPVector scale);
 
+    TSPVector getScale();
     double getAlpha(){return this->alpha;};
     double getBeta(){return this->beta;};
     double getK(){return this->k;};
@@ -70,7 +73,7 @@ public slots:
 
     void AddCity(float x, float y);
     std::vector<City>* getCities();
-    float CalcDist();
+    double CalcDist();
 
 private slots:
     void paintField(QPainter &p);
@@ -89,6 +92,7 @@ private:
 //    TSP travelingSalesman;
     ENN elasticNeuralNet;
 
+    TSPVector scale = TSPVector(1.0,1.0,0);
     double alpha = 1.0;
     double beta = 1.0;
     double k = 0.1;

@@ -52,7 +52,7 @@
             <x>520</x>
             <y>0</y>
             <width>401</width>
-            <height>421</height>
+            <height>366</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="setLayout_3">
@@ -469,6 +469,9 @@
             <height>41</height>
            </rect>
           </property>
+          <property name="digitCount">
+           <number>12</number>
+          </property>
          </widget>
          <widget class="QLabel" name="label">
           <property name="geometry">
@@ -481,6 +484,41 @@
           </property>
           <property name="text">
            <string>Current Generation:</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_2">
+          <property name="geometry">
+           <rect>
+            <x>520</x>
+            <y>370</y>
+            <width>141</width>
+            <height>51</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Distance:</string>
+          </property>
+         </widget>
+         <widget class="QLCDNumber" name="lcdDistance">
+          <property name="geometry">
+           <rect>
+            <x>660</x>
+            <y>380</y>
+            <width>251</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="smallDecimalPoint">
+           <bool>false</bool>
+          </property>
+          <property name="digitCount">
+           <number>12</number>
           </property>
          </widget>
         </widget>

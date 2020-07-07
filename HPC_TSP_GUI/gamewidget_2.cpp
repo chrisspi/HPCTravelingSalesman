@@ -47,6 +47,7 @@ void GameWidget_2::startGame(const int &number)  // Start Game
 void GameWidget_2::stopGame()  //Stop Game
 {
     timer->stop();
+    emit showDistance(this->CalcDist());
 }
 
 void GameWidget_2::clear() // Clear game field
@@ -65,6 +66,7 @@ void GameWidget_2::clearCities() // Clear game field
     emit gameEnds(true);
     this->networkRunning = false;
     this->cities->clear();
+    this->setScale(TSPVector(1.0,1.0,0));
     update();
 
 }
@@ -223,12 +225,24 @@ void GameWidget_2::newGeneration()  // Start the evolution of elastic net and up
     }
 
     emit newGeneration(++generationsCount);
+    emit showDistance(this->CalcDist());
     update();
 }
 
-float GameWidget_2::CalcDist()
+void GameWidget_2::setScale(TSPVector tspvec){
+    this->scale = tspvec;
+}
+
+TSPVector GameWidget_2::getScale(){
+    return this->scale;
+}
+
+double GameWidget_2::CalcDist()
 {
-  float dist = 0;
+  double dist = 0;
+  //double scale = tsp
+
+  dist = elasticNeuralNet.getTourLength(this->scale);
 
   return dist;
 }

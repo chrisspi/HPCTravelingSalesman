@@ -61,6 +61,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(game2,SIGNAL(gameEnds(bool)),game2,SLOT(stopGame()));
 
     connect(game2, SIGNAL(newGeneration(int)), ui->lcdNumber, SLOT(display(int)));
+    connect(game2, SIGNAL(showDistance(double)), ui->lcdDistance, SLOT(display(double)));
 }
 
 MainWindow::~MainWindow()
@@ -82,6 +83,7 @@ void MainWindow::loadCities()
   for( int i = 0; i < int(cities->size()); i++ ) {
     game2->AddCity( cities->at(i).x, cities->at(i).y );
   }
+  game2->setScale(tsp.getScale());
 /*
   QString filename = QFileDialog::getOpenFileName(this,
                                                   tr("Open saved cities"),
