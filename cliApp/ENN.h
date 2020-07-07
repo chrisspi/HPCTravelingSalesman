@@ -3,8 +3,8 @@
 #include "omp.h"
 
 //Define which Paralelization Settings are used, Comment out to not use them
-#define SIMD
-#define OPENMP
+//#define SIMD
+//#define OPENMP
 
 template<typename T>
 class ENN{
@@ -20,7 +20,7 @@ class ENN{
         std::vector<NetworkPoint<T>>* optimizeNetworkPoints(int iterations);
         //Returns an ordered List of the Cities for the current NetworkPoints
         std::vector<int>* getTSPList();
-        double getTourLength(double scale);
+        double getTourLength(TSPVector<double> scale);
         std::vector<NetworkPoint<T>>* getNetworkPoints();
         
     private:

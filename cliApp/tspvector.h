@@ -47,6 +47,14 @@ struct TSPVector {
           return p;
      }
 
+     TSPVector operator*(const TSPVector<double>& point){
+          T x = this->x * point.x;
+          T y = this->y * point.y;
+
+          TSPVector p(x,y,0);
+          return p;
+     }
+
      TSPVector operator-=(const TSPVector& point){
           x -= point.x;
           y -= point.y;

@@ -176,7 +176,7 @@ std::vector<int>* ENN<T>::getTSPList(){
 }
 
 template <typename T>
-double ENN<T>::getTourLength(double scale){ //Todo: X/Y Scale
+double ENN<T>::getTourLength(TSPVector<double> scale){ //Todo: X/Y Scale
     double length = 0;
 
     NetworkPoint<T>& prevPoint = networkPoints->back();
@@ -188,16 +188,16 @@ double ENN<T>::getTourLength(double scale){ //Todo: X/Y Scale
         for(int i=0; i<4; i++){
             NetworkPoint<double> tempNP(itP->x[i],itP->y[i],0);
 
-            length += (prevPointSIMD - tempNP).magnitude();
+            length += (prevPointSIMD * scale - tempNP * scale).magnitude();
             prevPointSIMD = tempNP;
         }
         #else
-        length += (prevPoint - *itP).magnitude();
+        length += (prevPoint * scale - *itP * scale).magnitude();
         prevPoint = *itP;
         #endif
     }
 
-    return length * scale;
+    return length;
 }
 
 template <typename T>
