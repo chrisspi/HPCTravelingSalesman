@@ -13,10 +13,10 @@ class TSP{
         ~TSP();
         //Returns List of normalised Cities of the given File
         std::vector<City>* getCities();
-        double getScale();
+        TSPVector getScale();
 
     private:
-        double scale;
+        TSPVector scale;
         int parseTSP(std::vector<std::string> *tsp);
         std::vector<City> *cities;
         int normaliseCities();

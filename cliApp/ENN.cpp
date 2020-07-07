@@ -151,16 +151,16 @@ std::vector<int>* ENN::getTSPList(){
     return tspList;
 }
 
-double ENN::getTourLength(double scale){
+double ENN::getTourLength(TSPVector scale){
     double length = 0;
 
     NetworkPoint& prevPoint = networkPoints->back();
     for(std::vector<NetworkPoint>::iterator itP = ENN::networkPoints->begin(); itP != ENN::networkPoints->end(); ++itP) {
-        length += (prevPoint - *itP).magnitude();
+        length += (prevPoint * scale - (*itP) * scale).magnitude();
         prevPoint = *itP;
     }
 
-    return length * scale;
+    return length;
 }
 
 void ENN::reset_via_results(){

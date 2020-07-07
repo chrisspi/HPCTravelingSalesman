@@ -25,7 +25,7 @@ class ENN{
         std::vector<NetworkPoint>* optimizeNetworkPoints(int iterations);
         //Returns an ordered List of the Cities for the current NetworkPoints
         std::vector<int>* getTSPList();
-        double getTourLength(double scale);
+        double getTourLength(TSPVector scale);
         
     private:
         double alpha;

@@ -4,7 +4,7 @@ using namespace std;
 // constructor
 // Checks whether file <filename> exists and can be opened
 // Reads the file and shifts the content of the individual lines into a string
-TSP::TSP(string filename){
+TSP::TSP(string filename): scale(1.0, 1.0, 0){
     string line;
     vector<string> *tsp = new vector<string>;
     ifstream myfile (filename);
@@ -114,11 +114,11 @@ int TSP::normaliseCities(){
            it->y /= maxY;
     }
 
-    TSP::scale = maxAxis;
+    TSP::scale = TSPVector(maxX, maxY, 0);
 
     return 0;
 }
 
-double TSP::getScale(){
+TSPVector TSP::getScale(){
     return TSP::scale;
 }
