@@ -176,7 +176,7 @@ std::vector<int>* ENN<T>::getTSPList(){
 }
 
 template <typename T>
-double ENN<T>::getTourLength(TSPVector<double> scale){ //Todo: X/Y Scale
+double ENN<T>::getTourLength(TSPVector<double> scale){
     double length = 0;
 
     NetworkPoint<T>& prevPoint = networkPoints->back();

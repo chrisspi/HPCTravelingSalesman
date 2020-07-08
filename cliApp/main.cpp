@@ -71,7 +71,18 @@ int main ( int argc, char *argv[]) {
 
 	double tScal = timerScalar.RealTime()*1000;
 	cout << "Tour Length: " << network.getTourLength(travelingSalesman.getScale()) << endl;
-	cout << "Time scalar: " << tScal << " ms " << endl;
+	#if defined(SIMD) && defined(OPENMP)
+	cout << "Time OpenMP + SIMD: " << tScal << " ms " << endl;
+	#endif
+	#if defined(SIMD) && !defined(OPENMP)
+	cout << "Time SIMD: " << tScal << " ms " << endl;
+	#endif
+	#if defined(OPENMP) && !defined(SIMD)
+	cout << "Time OpenMP: " << tScal << " ms " << endl;
+	#endif
+	#if !(defined(SIMD) || defined(OPENMP))
+	cout << "Time Scalar: " << tScal << " ms " << endl;
+	#endif
 
     delete points; // delete points vector
 }
